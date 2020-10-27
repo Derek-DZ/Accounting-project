@@ -1,0 +1,19 @@
+<template>
+  <div>
+    <router-link to="/money">记账</router-link>
+    |
+    <router-link to="/labels">账单</router-link>
+    |
+    <router-link to="/statistic">统计</router-link>
+  </div>
+</template>
+
+<script lang="ts">
+  export default {
+    name: 'Nav'
+  };
+</script>
+
+<style lang="scss" scoped>
+
+</style>
