@@ -1,29 +1,29 @@
 <template>
   <ul class="tags">
-    <li>
-      <Tag class="selected" tag-name="clothes"/>
-      衣
-    </li>
-    <li>
-      <Tag tag-name="food"/>
-      食
-    </li>
-    <li>
-      <Tag tag-name="room"/>
-      住
-    </li>
-    <li>
-      <Tag tag-name="travel"/>
-      行
-    </li>
-    <li>
-      <Tag tag-name="medical"/>
-      医疗
-    </li>
-    <li>
-      <Tag tag-name="other"/>
-      其他
-    </li>
+        <li>
+          <Tag class="selected" tag-name="clothes"/>
+          衣
+        </li>
+        <li>
+          <Tag tag-name="food"/>
+          食
+        </li>
+        <li>
+          <Tag tag-name="room"/>
+          住
+        </li>
+        <li>
+          <Tag tag-name="travel"/>
+          行
+        </li>
+        <li>
+          <Tag tag-name="medical"/>
+          医疗
+        </li>
+        <li>
+          <Tag tag-name="other"/>
+          其他
+        </li>
   </ul>
 </template>
 
@@ -31,17 +31,18 @@
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
   import Tag from '@/components/Tag.vue';
+
   @Component({
     components: {Tag}
   })
   export default class Tags extends Vue {
-
 
   }
 </script>
 
 <style lang="scss" scoped>
   @import "~@/assets/style/helper.scss";
+
   .tags {
     display: flex;
     flex-direction: row;

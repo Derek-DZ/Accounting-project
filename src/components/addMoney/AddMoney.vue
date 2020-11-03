@@ -1,7 +1,7 @@
 <template>
   <div class="addMoney">
     <NumberPad/>
-    <OutIn @update:vlaue="type"/>
+    <OutIn @update:value="type"/>
     <Note/>
     <Tags/>
     <div class="hide" @click="hide"></div>
@@ -28,17 +28,27 @@
     components: {Tags, OutIn, Note, NumberPad, Tag}
   })
   export default class AddMoney extends Vue {
-    @Prop() tags!: string[];
-    @Prop() type!: string;
-    @Prop() number!: string;
-    @Prop() iconName!: string;
-    @Prop() note!: string;
+    // @Prop() tags!: string[];
+    // @Prop() type!: string;
+    // @Prop() number!: string;
+    // @Prop() iconName!: string;
+    // @Prop() note!: string;
     hide(){
       const addMoney = document.querySelector('.addMoney') as HTMLDivElement;
       console.log(addMoney)
       addMoney.style.top = '100%';
       addMoney.style.bottom = '-100%';
     }
+    type(value: string){
+      console.log(value)
+    }
+    // @Prop() record: Record = {
+    //   tags: [],
+    //   type: '-',
+    //   number: '0',
+    //   iconName: 'clothes',
+    //   note: ''
+    // }
   }
 </script>
 
@@ -46,7 +56,6 @@
   @import "~@/assets/style/helper.scss";
 
   .addMoney {
-    border: 1px solid red;
     display: flex;
     flex-direction: column-reverse;
     align-items: center;

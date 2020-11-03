@@ -13,7 +13,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Watch} from 'vue-property-decorator';
 
   @Component
   export default class OutIn extends Vue {
@@ -29,7 +29,10 @@
       } else {
         this.type = '+';
       }
-      this.$emit('xxx', this.type);
+    }
+    @Watch('type')
+    onTypeChanged(value: string){
+      this.$emit('update:value', value);
     }
   }
 </script>
