@@ -23,7 +23,7 @@
       position: absolute;
       align-self: center;
       top: -380px;
-      width: 600px;
+      min-width: 140vw;
       height: 500px;
       background-color: #282828;
       border-radius: 200px;

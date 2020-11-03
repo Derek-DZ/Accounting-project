@@ -44,11 +44,13 @@
         font-weight: bold;
       }
       > .today-money {
-        font-size: 32px;
+        font-size: 40px;
         font-weight: bold;
         margin-top: 5px;
+        font-family: Consolas, monospace;
         > span {
-          font-size: 16px;
+          font-size: 20px;
+          font-family: Microsoft YaHei UI,serif;
         }
       }
     }

@@ -1,12 +1,20 @@
 <template>
   <div>
-    <router-view/>
+    <router-view />
+    <AddMoney />
   </div>
 </template>
 
 
 <script lang="ts">
+  import Vue from 'vue';
+  import {Component} from 'vue-property-decorator';
+  import AddMoney from '@/components/addMoney/AddMoney.vue';
 
+  @Component({
+    components: {AddMoney}
+  })
+  export default class App extends Vue {}
 </script>
 
 <style lang="scss">

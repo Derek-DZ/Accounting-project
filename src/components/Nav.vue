@@ -33,7 +33,6 @@
       line-height: 2em;
       text-decoration: none;
     }
-
     > .item.selected {
       color: $color-highLight;
       > .icon {
