@@ -4,15 +4,24 @@ $font-song: Georgia, "Nimbus Roman No9 L", "Songti SC", "Noto Serif CJK SC", "So
 
 $color-theme: #fe7547;
 $color-highLight: #333;
-$color-lowLight: #a3a3a3;
-$color-background: #F5F1EF;
-$color-box: #fafafa;
+$color-lowLight: #a5a5a5;
+$color-background: #ece5e4;
+$color-box: #f5f5f5;
 
-$color-food: #fe7547;
+$color-food: #8e2a45;
 $color-travel: #A43CC0;
-$color-room: #0069bb;
-$color-clothes: #612635;
+$color-room: #1674bb;
+$color-clothes: #fe7547;
 $color-other: #333;
 $color-medical: #ea0300;
 $color-gift: #c26cff;
 $color-unknown: #ba0040;
+
+// placeholder
+%clearFix{
+  &::after{
+    content: '';
+    clear: both;
+    display: block;
+  }
+}

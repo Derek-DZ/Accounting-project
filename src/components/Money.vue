@@ -7,8 +7,8 @@
         {{ todayMoney }}
       </div>
     </div>
-    <div class="add-money">
-      <Icon name="add" />
+    <div class="add-money" @click="visible">
+      <Icon name="add"/>
     </div>
   </div>
 </template>
@@ -16,15 +16,26 @@
 <script lang="ts">
   import Vue from 'vue';
   import {Component, Prop} from 'vue-property-decorator';
+  import AddMoney from '@/components/addMoney/AddMoney.vue';
 
-  @Component
+  @Component({
+    components: {AddMoney}
+  })
   export default class Money extends Vue {
-    @Prop(Number) todayMoney: number | undefined = 0;
+    @Prop(Number) todayMoney: number | undefined;
+
+    visible() {
+      const addMoney = document.querySelector('.addMoney') as HTMLDivElement;
+      console.log(addMoney)
+      addMoney.style.top = 'auto';
+      addMoney.style.bottom = '0';
+    }
   }
 </script>
 
 <style lang="scss" scoped>
   @import "~@/assets/style/helper.scss";
+
   .money-wrapper {
     display: flex;
     flex-direction: row;
@@ -39,18 +50,21 @@
 
     > .money {
       margin-left: 15px;
+
       > .today {
         font-size: 12px;
         font-weight: bold;
       }
+
       > .today-money {
         font-size: 40px;
         font-weight: bold;
         margin-top: 5px;
         font-family: Consolas, monospace;
+
         > span {
           font-size: 20px;
-          font-family: Microsoft YaHei UI,serif;
+          font-family: Microsoft YaHei UI, serif;
         }
       }
     }
@@ -64,6 +78,7 @@
       border-radius: 15px;
       margin-right: 10px;
       background-color: $color-theme;
+
       > .icon {
         align-self: center;
         width: 20px;
