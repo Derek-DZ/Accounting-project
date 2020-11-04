@@ -1,16 +1,17 @@
 <template>
   <div class="addMoney">
-    <NumberPad @update:value="onUpdateNumber" :type="record.type" :tag-name="record.tagName"/>
-    <OutIn @update:value="onUpdateType"/>
-    <Note @update:value="onUpdateNote"/>
-    <Tags @update:value="onUpdateTag"/>
+    {{record}}
+    <NumberPad :value.sync="record.number" :time.sync="record.time" :type="record.type" :tag-name="record.tagName" @submit="saveRecord"/>
+    <OutIn :value.sync="record.type" />
+    <Note :value="record.note" @update:value="onUpdateNote"/>
+    <Tags :value.sync="record.tagName" />
     <div class="hide" @click="hide"></div>
   </div>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Watch} from 'vue-property-decorator';
   import Tag from '@/components/Tag.vue';
   import NumberPad from '@/components/addMoney/NumberPad.vue';
   import Note from '@/components/addMoney/Note.vue';
@@ -19,9 +20,10 @@
 
   type Record = {
     type: string;
-    number: string;
+    number: number;
     tagName: string;
     note: string;
+    time: string;
   }
   @Component({
     components: {Tags, OutIn, Note, NumberPad, Tag}
@@ -29,40 +31,32 @@
   export default class AddMoney extends Vue {
     record: Record = {
       type: '-',
-      number : '0',
-      tagName : 'clothes',
-      note : ''
-  }
-
+      number: 0,
+      tagName: 'clothes',
+      note: '',
+      time: ''
+    };
+    recordList: Record[] = [];
     hide() {
       const addMoney = document.querySelector('.addMoney') as HTMLDivElement;
       addMoney.style.top = '100%';
       addMoney.style.bottom = '-100%';
     }
 
-    onUpdateType(value: string) {
-      this.record.type = value;
-    }
-
     onUpdateNote(value: string) {
       this.record.note = value;
     }
 
-    onUpdateTag(value: string) {
-      this.record.tagName = value;
+    saveRecord(){
+      const recordClone = JSON.parse(JSON.stringify(this.record));
+      this.recordList.push(recordClone);
+      console.log(this.recordList)
     }
 
-    onUpdateNumber(value: string) {
-      console.log(value);
+    @Watch('recordList')
+    onRecordListChange(){
+      localStorage.setItem('recordList', JSON.stringify(this.recordList));
     }
-
-    // @Prop() record: Record = {
-    //   tags: [],
-    //   type: '-',
-    //   number: '0',
-    //   tagName: 'clothes',
-    //   note: ''
-    // }
   }
 </script>
 

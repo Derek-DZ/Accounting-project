@@ -14,7 +14,7 @@
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
-      <button class="ok" @click="submitNumber">
+      <button class="ok" @click="enter">
         <Icon name="enter"/>
       </button>
       <button @click="inputContent">7</button>
@@ -28,18 +28,22 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Prop, Watch} from 'vue-property-decorator';
+  import {Component, Prop} from 'vue-property-decorator';
   import Tag from '@/components/Tag.vue';
   import OutIn from '@/components/addMoney/OutIn.vue';
+  import Note from '@/components/addMoney/Note.vue';
 
   @Component({
-    components: {Tag, OutIn}
+    components: {Tag, OutIn, Note}
   })
 
   export default class NumberPad extends Vue {
     @Prop() tagName!: string;
     @Prop() type!: string;
-    number = '0';
+    @Prop() readonly value!: string;
+    @Prop() readonly time!: string;
+    number = this.value.toString();
+    newTime = this.time;
 
     inputContent(event: TouchEvent | MouseEvent) {
       const button = (event.target as HTMLButtonElement);
@@ -63,10 +67,13 @@
       }
     }
 
-    @Watch('number')
-    submitNumber(value: string) {
-      this.number = value;
+    enter() {
+      const myDate = new Date();
+      this.newTime = myDate.toLocaleString()
       this.$emit('update:value', this.number);
+      this.$emit('update:time', this.newTime);
+      this.$emit('submit', this.number);
+      this.number = '0';
     }
   }
 </script>

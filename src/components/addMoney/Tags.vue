@@ -1,7 +1,7 @@
 <template>
   <ul class="tags">
     <li v-for="(tag,index) in tagsTable" :key="tag" @click="onToggle(index)" >
-      <Tag :tag-name="index" :class="{selected: selectedTag===index}"/>
+      <Tag :tag-name="index" :class="{selected: value===index}"/>
       {{tag}}
     </li>
   </ul>
@@ -9,7 +9,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Watch} from 'vue-property-decorator';
+  import {Component,Prop} from 'vue-property-decorator';
   import Tag from '@/components/Tag.vue';
 
   @Component({
@@ -25,12 +25,10 @@
       'other': '其他',
     };
 
-    selectedTag = 'clothes';
+    @Prop() readonly value!: string;
 
-    @Watch('tagName')
-    onToggle(value: string) {
-      this.selectedTag = value;
-      this.$emit('update:value', this.selectedTag);
+    onToggle(selectedTag: string) {
+      this.$emit('update:value', selectedTag);
     }
   }
 </script>

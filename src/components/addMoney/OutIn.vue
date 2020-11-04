@@ -1,10 +1,10 @@
 <template>
   <ul class="out-in">
-    <li @click="onTypeChanged('-')" :class="{selected: type==='-'}">
+    <li @click="onTypeChanged('-')" :class="{selected: value==='-'}">
       <Icon name="outlay"/>
       支出
     </li>
-    <li @click="onTypeChanged('+')" :class="{selected: type==='+'}">
+    <li @click="onTypeChanged('+')" :class="{selected: value==='+'}">
       <Icon name="income"/>
       收入
     </li>
@@ -13,16 +13,14 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Watch} from 'vue-property-decorator';
+  import {Component,Prop, Watch} from 'vue-property-decorator';
 
   @Component
   export default class OutIn extends Vue {
-    type = '-';
+    @Prop() readonly value!: string;
 
-    @Watch('type')
-    onTypeChanged(value: string) {
-      this.type = value;
-      this.$emit('update:value', this.type);
+    onTypeChanged(type: string) {
+      this.$emit('update:value', type)
     }
   }
 </script>

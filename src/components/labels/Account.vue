@@ -2,35 +2,43 @@
   <div class="accounts">
     <section class="label">
       <figure>
-        <Icon name="food"/>
+        <Icon :name="account.name"/>
       </figure>
       <div class="test-wrapper">
-        <span class="labelNote">内容{{ labelNote }}</span>
-        <span class="labelTime">123{{ labelTime }}</span>
+        <span class="labelNote">内容{{ account.note }}</span>
+        <span class="labelTime">123{{ account.time }}</span>
       </div>
-      <p class="labelMoney">{{ type }}￥{{ labelMoney }}</p>
+      <p class="labelMoney">{{ account.type }}￥{{ account.number }}</p>
     </section>
   </div>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
-  import { Component, Prop } from 'vue-property-decorator'
+  import {Component} from 'vue-property-decorator';
 
+  type Account = {
+    name: string;
+    note: string;
+    time: string;
+    type: string;
+    number: string;
+  }
   @Component
-  export default class Accounts extends Vue{
-
-    'type' = '-';
-    @Prop(String) labelNote: string | undefined;
-    @Prop(String) labelTime: string | undefined;
-    @Prop(Number) labelMoney: number | undefined;
-
-    // name: 'labels';
+  export default class Accounts extends Vue {
+    account: Account = {
+      name: 'clothes',
+      note: '',
+      time: '',
+      type: '-',
+      number: '0',
+    };
   }
 </script>
 
 <style lang="scss" scoped>
   @import "~@/assets/style/helper.scss";
+
   .accounts {
     background-color: $color-box;
     border-radius: 30px;
