@@ -63,10 +63,9 @@
       }
     }
 
-    // @Watch(number)
-    submitNumber(number: string) {
-      this.number = number;
-      console.log(this.number);
+    @Watch('number')
+    submitNumber(value: string) {
+      this.number = value;
       this.$emit('update:value', this.number);
     }
   }

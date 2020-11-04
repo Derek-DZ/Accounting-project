@@ -1,6 +1,6 @@
 <template>
   <div class="addMoney">
-    <NumberPad @update:value="onUpdateNumber" :type="this.type" :tag-name="this.tagName"/>
+    <NumberPad @update:value="onUpdateNumber" :type="record.type" :tag-name="record.tagName"/>
     <OutIn @update:value="onUpdateType"/>
     <Note @update:value="onUpdateNote"/>
     <Tags @update:value="onUpdateTag"/>
@@ -10,7 +10,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Prop} from 'vue-property-decorator';
+  import {Component} from 'vue-property-decorator';
   import Tag from '@/components/Tag.vue';
   import NumberPad from '@/components/addMoney/NumberPad.vue';
   import Note from '@/components/addMoney/Note.vue';
@@ -18,7 +18,6 @@
   import Tags from '@/components/addMoney/Tags.vue';
 
   type Record = {
-    tags: string[];
     type: string;
     number: string;
     tagName: string;
@@ -28,12 +27,13 @@
     components: {Tags, OutIn, Note, NumberPad, Tag}
   })
   export default class AddMoney extends Vue {
-    // @Prop() tags!: string[];
-    type = '-';
-    // @Prop() number!: string;
-    tagName = 'clothes';
+    record: Record = {
+      type: '-',
+      number : '0',
+      tagName : 'clothes',
+      note : ''
+  }
 
-    // @Prop() note!: string;
     hide() {
       const addMoney = document.querySelector('.addMoney') as HTMLDivElement;
       addMoney.style.top = '100%';
@@ -41,15 +41,15 @@
     }
 
     onUpdateType(value: string) {
-      this.type = value;
+      this.record.type = value;
     }
 
     onUpdateNote(value: string) {
-      console.log(value);
+      this.record.note = value;
     }
 
     onUpdateTag(value: string) {
-      this.tagName = value;
+      this.record.tagName = value;
     }
 
     onUpdateNumber(value: string) {
