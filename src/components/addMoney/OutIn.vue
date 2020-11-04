@@ -32,6 +32,7 @@
     display: flex;
     justify-content: space-around;
     width: 100%;
+    margin-right: 1px;
 
     > li {
       outline: none;

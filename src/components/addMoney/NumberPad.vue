@@ -41,9 +41,7 @@
     @Prop() tagName!: string;
     @Prop() type!: string;
     @Prop() readonly value!: string;
-    @Prop() readonly time!: string;
     number = this.value.toString();
-    newTime = this.time;
 
     inputContent(event: TouchEvent | MouseEvent) {
       const button = (event.target as HTMLButtonElement);
@@ -68,12 +66,9 @@
     }
 
     enter() {
-      const myDate = new Date();
-      this.newTime = myDate.toLocaleString()
       this.$emit('update:value', this.number);
-      this.$emit('update:time', this.newTime);
       this.$emit('submit', this.number);
-      this.number = '0';
+      this.number = "0"
     }
   }
 </script>

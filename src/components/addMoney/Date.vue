@@ -1,8 +1,8 @@
 <template>
-  <div class="node">
-    <span>备注</span>
+  <div class="date">
+    <span>时间</span>
     <label>
-      <input type="text" v-model.trim="value" placeholder="在这里添加备注">
+      <input type="date" v-model="date">
     </label>
   </div>
 </template>
@@ -12,10 +12,24 @@
   import {Component, Watch} from 'vue-property-decorator';
 
   @Component
-  export default class Note extends Vue {
-    value='';
-    @Watch('value')
-    onValueChanged(value: string){
+  export default class Time extends Vue {
+
+    date = this.format((new Date()).toLocaleDateString());
+
+    format(oldDate: string) {
+      const list = oldDate.split('/');
+      if (list[1].length < 2) {
+        list[1] = '0' + list[1];
+      }
+      if (list[2].length < 2) {
+        list[2] = '0' + list[2];
+      }
+      return list.join('-');
+    }
+
+    @Watch('date')
+    onDateChange(value: string) {
+      console.log(this.date);
       this.$emit('update:value', value);
     }
   }
@@ -23,7 +37,8 @@
 
 <style lang="scss" scoped>
   @import "~@/assets/style/helper.scss";
-  .node {
+
+  .date {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
@@ -45,7 +60,7 @@
         width: 99%;
         border: none;
         background-color: $color-box;
-        padding: 8px;
+        padding: 6px;
         outline: none;
       }
     }

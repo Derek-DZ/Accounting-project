@@ -6,7 +6,7 @@
       </figure>
       <div class="test-wrapper">
         <span class="labelNote">内容{{ account.note }}</span>
-        <span class="labelTime">123{{ account.time }}</span>
+        <span class="labelTime">123{{ account.date }}</span>
       </div>
       <p class="labelMoney">{{ account.type }}￥{{ account.number }}</p>
     </section>
@@ -20,7 +20,7 @@
   type Account = {
     name: string;
     note: string;
-    time: string;
+    date: string;
     type: string;
     number: string;
   }
