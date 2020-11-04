@@ -1,9 +1,9 @@
 <template>
   <nav>
-    <router-link to="/labels" class="item" active-class="selected">
-      <Icon name="labels"/>
+    <router-link to="/accounts" class="item" active-class="selected">
+      <Icon name="accounts"/>
       账单
-      <div class="labels-line"></div>
+      <div class="accounts-line"></div>
     </router-link>
     <router-link to="/statistic" class="item" active-class="selected">
       <Icon name="statistic"/>

@@ -19,19 +19,15 @@
   import OutIn from '@/components/addMoney/OutIn.vue';
   import Tags from '@/components/addMoney/Tags.vue';
   import Date from '@/components/addMoney/Date.vue';
+  import model from '@/model';
 
-  type Record = {
-    type: string;
-    number: number;
-    tagName: string;
-    note: string;
-    date: string;
-  }
+  const recordList = model.fetch();
+
   @Component({
     components: {Date, Tags, OutIn, Note, NumberPad, Tag}
   })
   export default class AddMoney extends Vue {
-    record: Record = {
+    record: RecordItem = {
       type: '-',
       number: 0,
       tagName: 'clothes',
@@ -39,7 +35,7 @@
       date: ''
     };
 
-    recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
+    recordList: RecordItem[] = recordList;
 
     hide() {
       const addMoney = document.querySelector('.addMoney') as HTMLDivElement;
@@ -56,14 +52,13 @@
     }
 
     saveRecord() {
-      const recordClone: Record = JSON.parse(JSON.stringify(this.record));
+      const recordClone: RecordItem = model.clone(this.record)
       this.recordList.push(recordClone);
-      console.log(this.recordList);
     }
 
     @Watch('recordList')
     onRecordListChange() {
-      localStorage.setItem('recordList', JSON.stringify(this.recordList));
+      model.save(this.recordList);
     }
   }
 </script>

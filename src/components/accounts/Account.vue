@@ -1,14 +1,14 @@
 <template>
   <div class="accounts">
-    <section class="label">
+    <section class="account">
       <figure>
         <Icon :name="account.name"/>
       </figure>
       <div class="test-wrapper">
-        <span class="labelNote">内容{{ account.note }}</span>
-        <span class="labelTime">123{{ account.date }}</span>
+        <span class="accountNote">内容{{ account.note }}</span>
+        <span class="accountTime">123{{ account.date }}</span>
       </div>
-      <p class="labelMoney">{{ account.type }}￥{{ account.number }}</p>
+      <p class="accountMoney">{{ account.type }}￥{{ account.number }}</p>
     </section>
   </div>
 </template>
@@ -29,7 +29,7 @@
     account: Account = {
       name: 'clothes',
       note: '',
-      time: '',
+      date: '',
       type: '-',
       number: '0',
     };
@@ -44,7 +44,7 @@
     border-radius: 30px;
     margin-top: 10px;
 
-    > .label {
+    > .account {
       display: flex;
       flex-direction: row;
       align-items: flex-start;
@@ -79,13 +79,13 @@
           margin-left: 0;
         }
 
-        > .labelTime {
+        > .accountTime {
           margin-top: 4px;
           color: $color-lowLight;
         }
       }
 
-      > .labelMoney {
+      > .accountMoney {
         align-self: center;
         flex-grow: 1;
         text-align: right;

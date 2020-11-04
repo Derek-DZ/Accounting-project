@@ -9,11 +9,11 @@
 </template>
 
 <script lang="ts">
-  import Account from '@/components/labels/Account.vue';
+  import Account from '@/components/accounts/Account.vue';
   import Header from '@/components/Header.vue';
   import Money from '@/components/Money.vue';
   export default {
-    name: 'Labels',
+    name: 'Accounts',
     components: {Money, Header, Account},
   };
 </script>
