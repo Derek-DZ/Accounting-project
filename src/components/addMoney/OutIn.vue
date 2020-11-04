@@ -1,11 +1,11 @@
 <template>
   <ul class="out-in">
-    <li class="out selected" @click="select">
-      <Icon name="out"/>
+    <li @click="onTypeChanged('-')" :class="{selected: type==='-'}">
+      <Icon name="outlay"/>
       支出
     </li>
-    <li class="in" @click="select">
-      <Icon name="in"/>
+    <li @click="onTypeChanged('+')" :class="{selected: type==='+'}">
+      <Icon name="income"/>
       收入
     </li>
   </ul>
@@ -19,20 +19,10 @@
   export default class OutIn extends Vue {
     type = '-';
 
-    select() {
-      const liOut = document.querySelector('.out') as HTMLLIElement;
-      const liIn = document.querySelector('.in') as HTMLLIElement;
-      liOut.classList.toggle('selected');
-      liIn.classList.toggle('selected');
-      if (liOut.classList.length >= 2) {
-        this.type = '-';
-      } else {
-        this.type = '+';
-      }
-    }
     @Watch('type')
-    onTypeChanged(value: string){
-      this.$emit('update:value', value);
+    onTypeChanged(value: string) {
+      this.type = value;
+      this.$emit('update:value', this.type);
     }
   }
 </script>

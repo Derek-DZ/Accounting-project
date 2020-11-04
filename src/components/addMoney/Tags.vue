@@ -1,42 +1,37 @@
 <template>
   <ul class="tags">
-        <li>
-          <Tag class="selected" tag-name="clothes"/>
-          衣
-        </li>
-        <li>
-          <Tag tag-name="food"/>
-          食
-        </li>
-        <li>
-          <Tag tag-name="room"/>
-          住
-        </li>
-        <li>
-          <Tag tag-name="travel"/>
-          行
-        </li>
-        <li>
-          <Tag tag-name="medical"/>
-          医疗
-        </li>
-        <li>
-          <Tag tag-name="other"/>
-          其他
-        </li>
+    <li v-for="(tag,index) in tagsTable" :key="tag" @click="onToggle(index)" >
+      <Tag :tag-name="index" :class="{selected: selectedTag===index}"/>
+      {{tag}}
+    </li>
   </ul>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Watch} from 'vue-property-decorator';
   import Tag from '@/components/Tag.vue';
 
   @Component({
     components: {Tag}
   })
   export default class Tags extends Vue {
+    tagsTable = {
+      'clothes': '衣',
+      'food': '食',
+      'room': '住',
+      'travel': '行',
+      'medical': '医疗',
+      'other': '其他',
+    };
 
+    selectedTag = 'clothes';
+
+    @Watch('tagName')
+    onToggle(value: string) {
+      this.selectedTag = value;
+      this.$emit('update:value', this.selectedTag);
+    }
   }
 </script>
 
@@ -50,7 +45,7 @@
 
     > li {
       text-align: center;
-      margin: 8px;
+      margin: 6px;
       line-height: 32px;
       font-weight: bold;
 

@@ -26,7 +26,6 @@
 
     visible() {
       const addMoney = document.querySelector('.addMoney') as HTMLDivElement;
-      console.log(addMoney)
       addMoney.style.top = 'auto';
       addMoney.style.bottom = '0';
     }

@@ -58,8 +58,5 @@
       color: #fff;
     }
   }
-  div.selected {
-    box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.5);
-    transform: translate(2px,2px);
-  }
+
 </style>

@@ -2,7 +2,7 @@
   <div class="numberPad">
     <div class="output">
       <span class="number">{{type}}{{number}}</span>
-      <Tag :tag-name="iconName"/>
+      <Tag :tag-name="tagName"/>
     </div>
     <div class="buttons">
       <button @click="inputContent">1</button>
@@ -14,7 +14,7 @@
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
-      <button class="ok">
+      <button class="ok" @click="submitNumber">
         <Icon name="enter"/>
       </button>
       <button @click="inputContent">7</button>
@@ -28,7 +28,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Prop} from 'vue-property-decorator';
+  import {Component, Prop, Watch} from 'vue-property-decorator';
   import Tag from '@/components/Tag.vue';
   import OutIn from '@/components/addMoney/OutIn.vue';
 
@@ -37,30 +37,37 @@
   })
 
   export default class NumberPad extends Vue {
-    @Prop() iconName!: string;
+    @Prop() tagName!: string;
     @Prop() type!: string;
     number = '0';
 
     inputContent(event: TouchEvent | MouseEvent) {
       const button = (event.target as HTMLButtonElement);
       const input: string = button.textContent || '';
-      if(this.number === '0' && input!=='.'){
+      if (this.number === '0' && input !== '.') {
         this.number = input;
-      }else if(this.number.indexOf('.')!==-1 && input==='.'){
-        return
-      } else if(this.number.length >= 10 || this.number.slice(-3,-2)==='.'){
+      } else if (this.number.indexOf('.') !== -1 && input === '.') {
         return;
-      }
-      else{
+      } else if (this.number.length >= 10 || this.number.slice(-3, -2) === '.') {
+        return;
+      } else {
         this.number += input;
       }
     }
+
     backspace() {
-      if(this.number.length === 1){
+      if (this.number.length === 1) {
         this.number = '0';
-      }else{
-        this.number = this.number.substring(0,this.number.length-1)
+      } else {
+        this.number = this.number.substring(0, this.number.length - 1);
       }
+    }
+
+    // @Watch(number)
+    submitNumber(number: string) {
+      this.number = number;
+      console.log(this.number);
+      this.$emit('update:value', this.number);
     }
   }
 </script>

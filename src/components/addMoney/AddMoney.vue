@@ -1,9 +1,9 @@
 <template>
   <div class="addMoney">
-    <NumberPad/>
-    <OutIn @update:value="type"/>
-    <Note/>
-    <Tags/>
+    <NumberPad @update:value="onUpdateNumber" :type="this.type" :tag-name="this.tagName"/>
+    <OutIn @update:value="onUpdateType"/>
+    <Note @update:value="onUpdateNote"/>
+    <Tags @update:value="onUpdateTag"/>
     <div class="hide" @click="hide"></div>
   </div>
 </template>
@@ -21,7 +21,7 @@
     tags: string[];
     type: string;
     number: string;
-    iconName: string;
+    tagName: string;
     note: string;
   }
   @Component({
@@ -29,24 +29,38 @@
   })
   export default class AddMoney extends Vue {
     // @Prop() tags!: string[];
-    // @Prop() type!: string;
+    type = '-';
     // @Prop() number!: string;
-    // @Prop() iconName!: string;
+    tagName = 'clothes';
+
     // @Prop() note!: string;
-    hide(){
+    hide() {
       const addMoney = document.querySelector('.addMoney') as HTMLDivElement;
-      console.log(addMoney)
       addMoney.style.top = '100%';
       addMoney.style.bottom = '-100%';
     }
-    type(value: string){
-      console.log(value)
+
+    onUpdateType(value: string) {
+      this.type = value;
     }
+
+    onUpdateNote(value: string) {
+      console.log(value);
+    }
+
+    onUpdateTag(value: string) {
+      this.tagName = value;
+    }
+
+    onUpdateNumber(value: string) {
+      console.log(value);
+    }
+
     // @Prop() record: Record = {
     //   tags: [],
     //   type: '-',
     //   number: '0',
-    //   iconName: 'clothes',
+    //   tagName: 'clothes',
     //   note: ''
     // }
   }
