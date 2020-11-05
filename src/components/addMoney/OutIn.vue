@@ -13,14 +13,14 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component,Prop, Watch} from 'vue-property-decorator';
+  import {Component, Prop, Watch} from 'vue-property-decorator';
 
   @Component
   export default class OutIn extends Vue {
     @Prop() readonly value!: string;
 
     onTypeChanged(type: string) {
-      this.$emit('update:value', type)
+      this.$emit('update:value', type);
     }
   }
 </script>

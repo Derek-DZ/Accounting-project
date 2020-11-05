@@ -38,6 +38,10 @@
     background-color: $color-medical;
   }
 
+  .work {
+    background-color: $color-work;
+  }
+
   .other {
     background-color: $color-other;
   }

@@ -9,7 +9,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component,Prop} from 'vue-property-decorator';
+  import {Component, Prop} from 'vue-property-decorator';
   import Tag from '@/components/Tag.vue';
 
   @Component({
@@ -22,6 +22,7 @@
       'room': '住',
       'travel': '行',
       'medical': '医疗',
+      'work': '工作',
       'other': '其他',
     };
 
@@ -39,11 +40,12 @@
   .tags {
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
+    width: 95%;
     margin-top: 10px;
 
     > li {
       text-align: center;
-      margin: 6px;
       line-height: 32px;
       font-weight: bold;
 

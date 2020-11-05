@@ -52,13 +52,22 @@
     }
 
     saveRecord() {
-      const recordClone: RecordItem = model.clone(this.record)
+      const recordClone: RecordItem = model.clone(this.record);
       this.recordList.push(recordClone);
     }
 
     @Watch('recordList')
     onRecordListChange() {
       model.save(this.recordList);
+    }
+
+    @Watch('record.type')
+    onTypeChange() {
+      if (this.record.type === '+') {
+        this.record.tagName = 'work';
+      }else{
+        this.record.tagName = 'clothes';
+      }
     }
   }
 </script>
