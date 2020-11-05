@@ -1,6 +1,6 @@
 <template>
   <div class="date">
-    <span>时间</span>
+    <span>日期</span>
     <label>
       <input type="date" v-model="date">
     </label>
@@ -14,22 +14,10 @@
   @Component
   export default class Time extends Vue {
 
-    date = this.format((new Date()).toLocaleDateString());
-
-    format(oldDate: string) {
-      const list = oldDate.split('/');
-      if (list[1].length < 2) {
-        list[1] = '0' + list[1];
-      }
-      if (list[2].length < 2) {
-        list[2] = '0' + list[2];
-      }
-      return list.join('-');
-    }
+    date = '';
 
     @Watch('date')
     onDateChange(value: string) {
-      console.log(this.date);
       this.$emit('update:value', value);
     }
   }

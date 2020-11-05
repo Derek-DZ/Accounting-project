@@ -19,9 +19,6 @@
   import OutIn from '@/components/addMoney/OutIn.vue';
   import Tags from '@/components/addMoney/Tags.vue';
   import Date from '@/components/addMoney/Date.vue';
-  import model from '@/model';
-
-  const recordList = model.fetch();
 
   @Component({
     components: {Date, Tags, OutIn, Note, NumberPad, Tag}
@@ -29,13 +26,13 @@
   export default class AddMoney extends Vue {
     record: RecordItem = {
       type: '-',
-      number: 0,
+      number: '0',
       tagName: 'clothes',
       note: '',
       date: ''
     };
 
-    recordList: RecordItem[] = recordList;
+    recordList = window.recordList;
 
     hide() {
       const addMoney = document.querySelector('.addMoney') as HTMLDivElement;
@@ -52,23 +49,23 @@
     }
 
     saveRecord() {
-      const recordClone: RecordItem = model.clone(this.record);
-      this.recordList.push(recordClone);
-    }
-
-    @Watch('recordList')
-    onRecordListChange() {
-      model.save(this.recordList);
+      if (this.record.date === '') {
+        alert('请选择日期');
+      } else {
+        window.createRecord(this.record);
+        this.record.type = '-';
+      }
     }
 
     @Watch('record.type')
     onTypeChange() {
       if (this.record.type === '+') {
         this.record.tagName = 'work';
-      }else{
+      } else {
         this.record.tagName = 'clothes';
       }
     }
+
   }
 </script>
 

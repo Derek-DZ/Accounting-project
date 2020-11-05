@@ -41,7 +41,8 @@
     @Prop() tagName!: string;
     @Prop() type!: string;
     @Prop() readonly value!: string;
-    number = this.value.toString();
+
+    number = this.value;
 
     inputContent(event: TouchEvent | MouseEvent) {
       const button = (event.target as HTMLButtonElement);
@@ -67,8 +68,13 @@
 
     enter() {
       this.$emit('update:value', this.number);
-      this.$emit('submit', this.number);
-      this.number = "0"
+      if (this.number === '0'){
+        alert("请输入金额")
+      }else{
+        this.$emit('submit', this.number);
+        this.number = '0';
+      }
+
     }
   }
 </script>

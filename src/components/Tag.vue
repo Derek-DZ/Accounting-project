@@ -33,6 +33,12 @@
   .travel {
     background-color: $color-travel;
   }
+  .study {
+    background-color: $color-study;
+  }
+  .amusement {
+    background-color: $color-amusement;
+  }
 
   .medical {
     background-color: $color-medical;
@@ -46,6 +52,7 @@
     background-color: $color-other;
   }
 
+
   figure {
     display: flex;
     justify-content: center;
@@ -54,6 +61,7 @@
     height: 40px;
     border-radius: 10px;
     z-index: -1;
+    opacity: 85%;
 
     > .icon {
       width: 25px;

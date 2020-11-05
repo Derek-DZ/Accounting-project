@@ -1,7 +1,7 @@
 <template>
   <div class="money-wrapper">
     <div class="money">
-      <span class="today">Today</span>
+      <span class="today">今日支出</span>
       <div class="today-money">
         <span>￥</span>
         {{ todayMoney }}
