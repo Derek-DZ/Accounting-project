@@ -6,7 +6,5 @@ type RecordItem = {
   date: string;
 }
 
-interface Window {
-  recordList: RecordItem[];
-  createRecord: (record: RecordItem) => void;
-}
+// interface Window {
+// }

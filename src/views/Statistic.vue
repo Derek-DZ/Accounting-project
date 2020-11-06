@@ -3,25 +3,84 @@
     <Header/>
     <Money/>
     <layout/>
+    <Tabs :data-source="outInList" class-prefix="statisticOutIn" :value.sync="outInValue"/>
+    <Tabs :data-source="dateList" class-prefix="statisticDate" :value.sync="dateValue"/>
   </div>
 </template>
 
 <script lang="ts">
-  import Header from '@/components/Header.vue';
+  import Vue from 'vue';
+  import {Component} from 'vue-property-decorator';
   import Money from '@/components/Money.vue';
-  export default {
-    name: 'Statistic',
-    components: {Money, Header},
-  };
+  import Header from '@/components/Header.vue';
+  import Tabs from '@/components/Tabs.vue';
+  import outInList from '@/constant/outInList';
+  import dateList from '@/constant/dateList';
+
+  @Component({
+    components: {Tabs, Header, Money}
+  })
+  export default class Statistic extends Vue {
+    outInList = outInList
+    outInValue = '-'
+    dateList = dateList
+    dateValue = 'day'
+  }
 </script>
 
 <style lang="scss" scoped>
   @import "~@/assets/style/helper.scss";
 
-  .wrapper{
+  .wrapper {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    margin:8px;
+    margin: 8px;
+  }
+
+  ::v-deep {
+    .statisticOutIn-tabs{
+      > .statisticOutIn-tab-item {
+        padding: 3px;
+        font-size: 16px;
+      }
+      > .income-tab-item {
+        transform: translateX(-20px);
+      }
+      > .outlay-tab-item {
+        transform: translateX(20px);
+      }
+      > .statisticOutIn-tab-item.selected{
+        background-color: $color-box;
+        z-index: 1;
+      }
+    }
+    .statisticDate-tabs{
+      transform: translateY(-5px);
+      z-index: 2;
+      > .statisticDate-tab-item {
+        border-radius: 10px 10px 0 0;
+        font-size: 14px;
+        padding: 2px;
+        > .icon{
+          display: none;
+        }
+      }
+      > .day-tab-item {
+        transform: translateX(10px);
+        z-index: 3;
+      }
+      > .week-tab-item {
+        z-index: 2;
+      }
+      > .month-tab-item {
+        transform: translateX(-10px);
+      }
+      > .statisticDate-tab-item.selected{
+        background-color: $color-box;
+        z-index: 3;
+      }
+    }
+
   }
 </style>

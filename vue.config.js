@@ -1,4 +1,3 @@
-
 const path = require('path')
 
 module.exports = {
@@ -15,5 +14,5 @@ module.exports = {
       .tap(options => ({...options, plugins: [{removeAttrs: {attrs: 'fill'}}]})).end()
     config.plugin('svg-sprite').use(require('svg-sprite-loader/plugin'), [{plainSprite: true}])
     config.module.rule('svg').exclude.add(dir) // 其他 svg loader 排除 icons 目录
-  }
+  },
 }

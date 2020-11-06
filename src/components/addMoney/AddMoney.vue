@@ -2,7 +2,7 @@
   <div class="addMoney">
     <NumberPad :value.sync="record.number" :type="record.type" :tag-name="record.tagName"
                @submit="saveRecord"/>
-    <OutIn :value.sync="record.type"/>
+    <Tabs :data-source="outInList" class-prefix="addMoney" :value.sync="record.type"/>
     <Date @update:value="onUpdateDate"/>
     <Note @update:value="onUpdateNote"/>
     <Tags :value.sync="record.tagName"/>
@@ -16,14 +16,23 @@
   import Tag from '@/components/Tag.vue';
   import NumberPad from '@/components/addMoney/NumberPad.vue';
   import Note from '@/components/addMoney/Note.vue';
-  import OutIn from '@/components/addMoney/OutIn.vue';
   import Tags from '@/components/addMoney/Tags.vue';
   import Date from '@/components/addMoney/Date.vue';
+  import store from '@/store/index2.ts';
+  import Tabs from '@/components/Tabs.vue';
+  import outInList from '@/constant/outInList';
+
 
   @Component({
-    components: {Date, Tags, OutIn, Note, NumberPad, Tag}
+    components: {Tabs, Date, Tags, Note, NumberPad, Tag},
+    computed: {
+      recordList() {
+        return store.recordList;
+      }
+    }
   })
   export default class AddMoney extends Vue {
+
     record: RecordItem = {
       type: '-',
       number: '0',
@@ -31,8 +40,7 @@
       note: '',
       date: ''
     };
-
-    recordList = window.recordList;
+    outInList = outInList;
 
     hide() {
       const addMoney = document.querySelector('.addMoney') as HTMLDivElement;
@@ -52,7 +60,7 @@
       if (this.record.date === '') {
         alert('请选择日期');
       } else {
-        window.createRecord(this.record);
+        store.createRecord(this.record);
         this.record.type = '-';
       }
     }
@@ -84,6 +92,7 @@
     position: absolute;
     transition: top 1s, bottom 1s;
     bottom: 0;
+    z-index: 999;
 
     > .hide {
       width: 48px;
@@ -93,5 +102,24 @@
       border-radius: 5px;
     }
   }
+  ::v-deep {
+    .addMoney-tabs{
+      justify-content: center;
+      transform: translateY(2px);
+      > .addMoney-tab-item{
+        border-color: $color-box;
+      }
+      > .income-tab-item {
+        transform: translateX(-20px);
+      }
+      > .outlay-tab-item {
+        transform: translateX(20px);
+      }
+      > .addMoney-tab-item.selected{
+        background-color: white;
+        z-index: 1;
+      }
+    }
 
+  }
 </style>

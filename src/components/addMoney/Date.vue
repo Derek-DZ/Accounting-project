@@ -2,7 +2,7 @@
   <div class="date">
     <span>日期</span>
     <label>
-      <input type="date" v-model="date">
+      <input type="datetime-local" v-model="date">
     </label>
   </div>
 </template>
@@ -12,7 +12,7 @@
   import {Component, Watch} from 'vue-property-decorator';
 
   @Component
-  export default class Time extends Vue {
+  export default class Date extends Vue {
 
     date = '';
 

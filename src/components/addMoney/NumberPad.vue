@@ -30,11 +30,10 @@
   import Vue from 'vue';
   import {Component, Prop} from 'vue-property-decorator';
   import Tag from '@/components/Tag.vue';
-  import OutIn from '@/components/addMoney/OutIn.vue';
   import Note from '@/components/addMoney/Note.vue';
 
   @Component({
-    components: {Tag, OutIn, Note}
+    components: {Tag, Note}
   })
 
   export default class NumberPad extends Vue {
@@ -85,6 +84,8 @@
   .numberPad {
     border-radius: 0 0 30px 30px;
     width: 100%;
+    background-color: white;
+    z-index: 10;
 
     > .output {
       display: flex;
