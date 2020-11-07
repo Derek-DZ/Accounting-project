@@ -1,15 +1,18 @@
 <template>
   <ul class="accountList">
-    <li class="account" v-for="record in recordListTree" :key="record.title">
-      <h3 class="title">{{beautifyDate(record.title)}}</h3>
+    <li class="accountTitle" v-for="record in recordListTree" :key="record.title">
+      <h3 class="title">{{beautifyDate(record.title)}}
+        <Icon name="open"/>
+      </h3>
+
       <ul>
-        <li v-for="item in record.data" :key="item.id" class="record">
+        <li v-for="item in record.data" :key="item.id" class="account">
           <Tag :tag-name="item.tagName"/>
           <div class="test-wrapper">
             <span class="accountNote">{{ item.note }}</span>
             <span class="accountTime">{{ beautifyTime(item.date) }}</span>
           </div>
-          <p class="accountMoney">{{ item.type }}￥{{ item.number }}</p>
+          <span class="accountMoney">{{ item.type }}￥{{ item.number }}</span>
         </li>
       </ul>
     </li>
@@ -23,21 +26,25 @@
   import clone from '@/lib/clone';
   import dayjs from 'dayjs';
   import Tag from '@/components/Tag.vue';
+
   @Component({
     components: {Tag}
   })
   export default class Accounts extends Vue {
-    beautifyDate(string: string){
-      const day = dayjs(string)
-      const today = dayjs()
-      if (day.isSame(today, 'day')){
+    beautifyDate(string: string) {
+      const day = dayjs(string);
+      const today = dayjs();
+      if (day.isSame(today, 'day')) {
         return '今天';
-      }else {
-        return day.format('YYYY年M月D日')
+      } else if (day.isSame(today, 'year')) {
+        return day.format('M月D日');
+      } else {
+        return day.format('YYYY年M月D日');
       }
     }
-    beautifyTime(string: string){
-      return dayjs(string).format('HH:mm')
+
+    beautifyTime(string: string) {
+      return dayjs(string).format('HH:mm');
     }
 
     get recordList() {
@@ -77,53 +84,66 @@
     z-index: 10;
     max-height: 55vh;
     overflow: scroll;
+    padding-top: 5px;
 
-    > .account {
-      display: flex;
-      flex-direction: row;
-      align-items: flex-start;
+    > .accountTitle {
       padding: 5px;
       justify-content: start;
-      margin: 10px 8px 10px 8px;
+      margin: 2px 8px 2px 8px;
 
-      > figure {
-        margin: 5px;
+      > .title {
         display: flex;
-        justify-content: center;
-        width: 32px;
-        height: 32px;
-        background-color: $color-food;
-        border-radius: 10px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        background-color: $color-background;
+        padding-left: 5px;
 
         > .icon {
-          width: 20px;
-          height: 20px;
-          align-self: center;
-          color: #fff;
+          margin-right: 8px;
         }
       }
 
-      > .test-wrapper {
-        display: flex;
-        flex-direction: column;
-        margin-left: 5px;
+      > ul {
+        > .account {
+          display: flex;
+          flex-direction: row;
+          align-items: flex-start;
+          margin: 5px;
+          background-color: white;
+          border-radius: 10px;
 
-        > span {
-          font-size: 12px;
-          margin-left: 0;
+          > .tag {
+            margin-right: 10px;
+          }
+
+          > .test-wrapper {
+            display: flex;
+            flex-direction: column;
+            font-family: $font-hei;
+
+            > .accountNote {
+              height: 20px;
+              line-height: 22px;
+              font-size: 13px;
+            }
+
+            > .accountTime {
+              height: 20px;
+              line-height: 22px;
+              font-size: 13px;
+            }
+          }
+
+          > .accountMoney {
+            flex-grow: 1;
+            align-self: center;
+            text-align: end;
+            margin-right: 10px;
+          }
         }
-
-        > .accountTime {
-          margin-top: 4px;
-          color: $color-lowLight;
-        }
-      }
-
-      > .accountMoney {
-        align-self: center;
-        flex-grow: 1;
-        text-align: right;
       }
     }
   }
+
 </style>

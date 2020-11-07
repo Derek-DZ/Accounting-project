@@ -82,7 +82,7 @@
   @import "~@/assets/style/helper.scss";
 
   .numberPad {
-    border-radius: 0 0 30px 30px;
+    border-radius: 0 0 50px 50px;
     width: 100%;
     background-color: white;
     z-index: 10;
