@@ -24,7 +24,7 @@
 
   nav {
     display: flex;
-    margin-top: 10px;
+    margin-top: 8px;
     > .item {
       color: $color-lowLight;
       font-size: 16px;

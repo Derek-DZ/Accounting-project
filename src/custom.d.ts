@@ -6,5 +6,9 @@ type RecordItem = {
   date: string;
 }
 
+type RecordTree = {
+  title: string;
+  data: RecordItem[];
+}[]
 // interface Window {
 // }

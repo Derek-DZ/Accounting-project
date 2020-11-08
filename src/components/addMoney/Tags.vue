@@ -45,7 +45,7 @@
     /*justify-content: space-around;*/
     max-width: 90%;
     margin-top: 10px;
-    overflow: scroll;
+    overflow-x: scroll;
 
     > li {
       text-align: center;

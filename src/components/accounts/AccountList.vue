@@ -2,9 +2,8 @@
   <ul class="accountList">
     <li class="accountTitle" v-for="record in recordListTree" :key="record.title">
       <h3 class="title">{{beautifyDate(record.title)}}
-        <Icon name="open"/>
+        <!--        <Icon name="open"/>-->
       </h3>
-
       <ul>
         <li v-for="item in record.data" :key="item.id" class="account">
           <Tag :tag-name="item.tagName"/>
@@ -21,7 +20,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Watch} from 'vue-property-decorator';
   import store from '@/store/index2';
   import clone from '@/lib/clone';
   import dayjs from 'dayjs';
@@ -47,28 +46,8 @@
       return dayjs(string).format('HH:mm');
     }
 
-    get recordList() {
-      return store.fetchRecords();
-    }
-
-    get recordListTree() {
-      if (this.recordList.length === 0) {return [];}
-      type RecordTree = { title: string; data: RecordItem[] }[]
-      const newRecordList: RecordItem[] = clone(this.recordList).sort((a: RecordItem, b: RecordItem) => dayjs(b.date).valueOf() - dayjs(a.date).valueOf());
-      const recordTree: RecordTree = [{
-        title: newRecordList[0].date,
-        data: [newRecordList[0]]
-      }];
-      for (let i = 0; i < newRecordList.length - 1; i++) {
-        const current = newRecordList[i + 1];
-        const last = recordTree[recordTree.length - 1];
-        if (dayjs(current.date).isSame(dayjs(last.title), 'date')) {
-          last.data.push(current);
-        } else {
-          recordTree.push({title: current.date, data: [current]});
-        }
-      }
-      return recordTree;
+    get recordListTree(){
+      return store.fetchRecordListTree()
     }
   }
 
@@ -82,8 +61,8 @@
     border-radius: 10px;
     margin-top: -8px;
     z-index: 10;
-    max-height: 55vh;
-    overflow: scroll;
+    max-height: 58vh;
+    overflow-y: scroll;
     padding-top: 5px;
 
     > .accountTitle {

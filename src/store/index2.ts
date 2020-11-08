@@ -1,7 +1,9 @@
 import recordStore from '@/store/recordStore';
+import recordListTreeStore from '@/store/recordListTreeStore';
 
 const store = {
-  ...recordStore
+  ...recordStore,
+  ...recordListTreeStore
 };
 
 export default store;

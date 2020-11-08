@@ -1,11 +1,11 @@
 <template>
-  <header>
-    <figure class="header-background"></figure>
-    <div class="title-logo">
-      <span class="title">多彩记账</span>
-      <span class="slogan">记录多彩生活</span>
-    </div>
-  </header>
+    <header>
+      <figure class="header-background"></figure>
+      <div class="title-logo">
+        <span class="title">多彩记账</span>
+        <span class="slogan">记录多彩生活</span>
+      </div>
+    </header>
 </template>
 
 <script lang="ts">
@@ -15,7 +15,6 @@
 </script>
 <style lang="scss" scoped>
   @import "~@/assets/style/helper.scss";
-  /*@import "~@/assets/style/reset.scss";*/
   header {
     display: flex;
     justify-content: center;
