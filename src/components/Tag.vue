@@ -60,8 +60,7 @@
     width: 40px;
     height: 40px;
     border-radius: 10px;
-    z-index: -1;
-    opacity: 85%;
+    opacity: 0.85;
 
     > .icon {
       width: 25px;
