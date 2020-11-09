@@ -28,22 +28,28 @@ const recordListTreeStore = {
   },
   fetchOutlayRecordTree() {
     const outlayRecordListTree = this.fetchRecordListTree();
-    for (let i = 0; i < outlayRecordListTree.length; i++) {
+    for (let i = outlayRecordListTree.length-1; i >= 0 ; i--) {
       for (let j = outlayRecordListTree[i].data.length-1; j>=0 ; j--) {
         if (outlayRecordListTree[i].data[j].type === '+') {
           outlayRecordListTree[i].data.splice(j, 1);
         }
+      }
+      if (outlayRecordListTree[i].data.length===0){
+        outlayRecordListTree.splice(i,1)
       }
     }
     return outlayRecordListTree;
   },
   fetchIncomeRecordTree() {
     const incomeRecordListTree = this.fetchRecordListTree();
-    for (let i = 0; i < incomeRecordListTree.length; i++) {
+    for (let i = incomeRecordListTree.length-1; i >= 0 ; i--) {
       for (let j = incomeRecordListTree[i].data.length-1; j>=0 ; j--)  {
         if (incomeRecordListTree[i].data[j].type === '-') {
           incomeRecordListTree[i].data.splice(j, 1);
         }
+      }
+      if (incomeRecordListTree[i].data.length===0){
+        incomeRecordListTree.splice(i,1)
       }
     }
     return incomeRecordListTree;

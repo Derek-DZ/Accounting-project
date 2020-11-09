@@ -66,6 +66,7 @@
       } else {
         store.createRecord(this.record);
         this.record.type = '-';
+        this.record.note = ''
       }
     }
 

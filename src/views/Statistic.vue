@@ -4,7 +4,7 @@
     <Money/>
     <layout/>
     <Tabs :data-source="outInList" class-prefix="statisticOutIn" :value.sync="outInValue"/>
-    <Tabs :data-source="dateList" class-prefix="statisticDate" :value.sync="dateValue"/>
+<!--    <Tabs :data-source="dateList" class-prefix="statisticDate" :value.sync="dateValue"/>-->
   </div>
 </template>
 
@@ -15,7 +15,7 @@
   import Header from '@/components/Header.vue';
   import Tabs from '@/components/Tabs.vue';
   import outInList from '@/constant/outInList';
-  import dateList from '@/constant/dateList';
+  // import dateList from '@/constant/dateList';
 
   @Component({
     components: {Tabs, Header, Money}
@@ -23,8 +23,8 @@
   export default class Statistic extends Vue {
     outInList = outInList
     outInValue = '-'
-    dateList = dateList
-    dateValue = 'day'
+    // dateList = dateList
+    // dateValue = 'day'
   }
 </script>
 
