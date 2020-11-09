@@ -19,6 +19,3 @@ new Vue({
   render: h => h(App)
 }).$mount('#app');
 
-document.querySelector('body')!.addEventListener('touchstart', function(e){
-  e!.preventDefault();
-})
