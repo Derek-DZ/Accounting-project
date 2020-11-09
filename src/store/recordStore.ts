@@ -1,12 +1,11 @@
 import clone from '@/lib/clone';
 
-const localStorageKeyName = 'recordList';
 let data = [] as RecordItem[];
 
 const recordStore = {
   recordList: data,
   fetchRecords() {
-    data = JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]') as RecordItem[];
+    data = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
     return data;
   },
   saveRecords() {

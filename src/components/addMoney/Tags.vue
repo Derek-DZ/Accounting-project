@@ -1,10 +1,13 @@
 <template>
-  <ul class="tags">
-    <li v-for="(tag,index) in tagsTable" :key="tag" @click="onToggle(index)" >
-      <Tag :tag-name="index" :class="{selected: value===index}"/>
-      {{tag}}
-    </li>
-  </ul>
+  <div>
+    <ul class="tags">
+      <li v-for="(tag,index) in tagsTable" :key="tag" @click="onToggle(index)">
+        <Tag :tag-name="index" :class="{selected: value===index}"/>
+        {{tag}}
+      </li>
+    </ul>
+    <Icon name="right"/>
+  </div>
 </template>
 
 <script lang="ts">
@@ -38,14 +41,22 @@
 
 <style lang="scss" scoped>
   @import "~@/assets/style/helper.scss";
-
+div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  max-width: 100%;
+}
   .tags {
+    /*border: 1px solid red;*/
     display: flex;
     flex-direction: row;
-    /*justify-content: space-around;*/
-    max-width: 90%;
+    justify-content: flex-start;
     margin-top: 10px;
+    margin-left: 14px;
+    margin-right: 4px;
     overflow-x: scroll;
+    max-width: 89%;
 
     > li {
       text-align: center;

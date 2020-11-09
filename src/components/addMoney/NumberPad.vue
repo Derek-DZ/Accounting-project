@@ -68,10 +68,11 @@
     enter() {
       this.$emit('update:value', this.number);
       if (this.number === '0'){
-        alert("请输入金额")
+        window.alert("请输入金额")
       }else{
         this.$emit('submit', this.number);
         this.number = '0';
+        window.alert("账单已添加")
       }
 
     }

@@ -35,6 +35,7 @@
     font-size: 16px;
     background-color: $color-background;
     margin-bottom: 2px;
+    border-radius: 3px;
 
     > span {
       padding: 8px 16px;

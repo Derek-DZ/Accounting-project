@@ -25,7 +25,29 @@ const recordListTreeStore = {
       }
     }
     return recordTree;
-  }
+  },
+  fetchOutlayRecordTree() {
+    const outlayRecordListTree = this.fetchRecordListTree();
+    for (let i = 0; i < outlayRecordListTree.length; i++) {
+      for (let j = outlayRecordListTree[i].data.length-1; j>=0 ; j--) {
+        if (outlayRecordListTree[i].data[j].type === '+') {
+          outlayRecordListTree[i].data.splice(j, 1);
+        }
+      }
+    }
+    return outlayRecordListTree;
+  },
+  fetchIncomeRecordTree() {
+    const incomeRecordListTree = this.fetchRecordListTree();
+    for (let i = 0; i < incomeRecordListTree.length; i++) {
+      for (let j = incomeRecordListTree[i].data.length-1; j>=0 ; j--)  {
+        if (incomeRecordListTree[i].data[j].type === '-') {
+          incomeRecordListTree[i].data.splice(j, 1);
+        }
+      }
+    }
+    return incomeRecordListTree;
+  },
 };
 
 export default recordListTreeStore;

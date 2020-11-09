@@ -45,8 +45,11 @@
 
     visible() {
       const addMoney = document.querySelector('.addMoney') as HTMLDivElement;
-      addMoney.style.top = 'auto';
-      addMoney.style.bottom = '0';
+      addMoney.style.display = 'flex';
+      setTimeout(()=>{
+        addMoney.style.top = 'auto';
+        addMoney.style.bottom = '0';
+      },0)
     }
 
     get recordListTree() {
@@ -54,6 +57,7 @@
     }
 
     get todayNumber() {
+      if (this.recordListTree.length === 0) {return 0;}
       const todayRecordList = this.recordListTree[0].data;
       let todayOutlay = 0;
       let todayIncome = 0;
@@ -96,6 +100,7 @@
         display: flex;
         font-size: 14px;
         font-weight: bold;
+
         > .todayText {
           width: 8vh;
           align-self: center;
@@ -147,6 +152,7 @@
         border: none;
         box-shadow: none;
       }
+
       > .today-tab-item {
         font-size: 14px;
         border: none;

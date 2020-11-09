@@ -1,9 +1,7 @@
 <template>
   <ul class="accountList">
-    <li class="accountTitle" v-for="record in recordListTree" :key="record.title">
-      <h3 class="title">{{beautifyDate(record.title)}}
-        <!--        <Icon name="open"/>-->
-      </h3>
+    <li class="accountTitle" v-for="record in outlayRecordTree" :key="record.id">
+      <h3 class="title">{{beautifyDate(record.title)}}</h3>
       <ul>
         <li v-for="item in record.data" :key="item.id" class="account">
           <Tag :tag-name="item.tagName"/>
@@ -20,7 +18,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Watch} from 'vue-property-decorator';
+  import {Component, Prop, Watch} from 'vue-property-decorator';
   import store from '@/store/index2';
   import clone from '@/lib/clone';
   import dayjs from 'dayjs';
@@ -30,6 +28,7 @@
     components: {Tag}
   })
   export default class Accounts extends Vue {
+    type = '-'
     beautifyDate(string: string) {
       const day = dayjs(string);
       const today = dayjs();
@@ -46,8 +45,16 @@
       return dayjs(string).format('HH:mm');
     }
 
-    get recordListTree(){
-      return store.fetchRecordListTree()
+    get recordListTree() {
+      return store.fetchRecordListTree();
+    }
+
+    get outlayRecordTree() {
+      return store.fetchOutlayRecordTree();
+    }
+
+    get incomeRecordTree() {
+      return store.fetchIncomeRecordTree();
     }
   }
 
@@ -61,7 +68,7 @@
     border-radius: 10px;
     margin-top: -8px;
     z-index: 10;
-    max-height: 58vh;
+    flex-grow: 1;
     overflow-y: scroll;
     padding-top: 5px;
 

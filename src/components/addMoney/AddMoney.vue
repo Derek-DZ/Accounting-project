@@ -46,6 +46,10 @@
       const addMoney = document.querySelector('.addMoney') as HTMLDivElement;
       addMoney.style.top = '100%';
       addMoney.style.bottom = '-100%';
+      // addMoney.style.transition= 'top 1s, bottom 1s';
+      setTimeout(()=>{
+        addMoney.style.display='none'
+      },200)
     }
 
     onUpdateNote(value: string) {
@@ -90,7 +94,8 @@
     width: 95%;
     left: 2.5%;
     position: absolute;
-    transition: top 1s, bottom 1s;
+    transition:top .5s, bottom .5s;
+
     bottom: 0;
     z-index: 999;
 

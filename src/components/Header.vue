@@ -18,14 +18,15 @@
   header {
     display: flex;
     justify-content: center;
+    max-width: 100vw;
     > .header-background {
       position: absolute;
       align-self: center;
-      top: -380px;
-      min-width: 140vw;
-      height: 500px;
+      top: -40px;
+      min-width: 100vw;
+      height: 150px;
       background-color: #282828;
-      border-radius: 200px;
+      border-radius: 10%;
       margin: 0;
       z-index: -1;
     }
