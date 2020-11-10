@@ -4,7 +4,7 @@
                @submit="saveRecord"/>
     <Tabs :data-source="outInList" class-prefix="addMoney" :value.sync="record.type"/>
     <Date @update:value="onUpdateDate"/>
-    <Note @update:value="onUpdateNote"/>
+    <Note :value.sync="record.note"/>
     <Tags :value.sync="record.tagName"/>
     <div class="hide" @click="hide"></div>
   </div>
@@ -46,14 +46,9 @@
       const addMoney = document.querySelector('.addMoney') as HTMLDivElement;
       addMoney.style.top = '100%';
       addMoney.style.bottom = '-100%';
-      // addMoney.style.transition= 'top 1s, bottom 1s';
-      setTimeout(()=>{
-        addMoney.style.display='none'
-      },200)
-    }
-
-    onUpdateNote(value: string) {
-      this.record.note = value;
+      setTimeout(() => {
+        addMoney.style.display = 'none';
+      }, 200);
     }
 
     onUpdateDate(value: string) {
@@ -66,7 +61,7 @@
       } else {
         store.createRecord(this.record);
         this.record.type = '-';
-        this.record.note = ''
+        this.record.note = '';
       }
     }
 
@@ -95,7 +90,7 @@
     width: 95%;
     left: 2.5%;
     position: absolute;
-    transition:top .5s, bottom .5s;
+    transition: top .5s, bottom .5s;
 
     bottom: 0;
     z-index: 999;
@@ -108,20 +103,25 @@
       border-radius: 5px;
     }
   }
+
   ::v-deep {
-    .addMoney-tabs{
+    .addMoney-tabs {
       justify-content: center;
       transform: translateY(2px);
-      > .addMoney-tab-item{
+
+      > .addMoney-tab-item {
         border-color: $color-box;
       }
+
       > .income-tab-item {
         transform: translateX(-20px);
       }
+
       > .outlay-tab-item {
         transform: translateX(20px);
       }
-      > .addMoney-tab-item.selected{
+
+      > .addMoney-tab-item.selected {
         background-color: white;
         z-index: 1;
       }
