@@ -48,17 +48,17 @@
     }
 
     get outlayRecordTree() {
-      return store.fetchOutlayRecordTree();
+      return store.fetchNewRecordTree("-");
     }
 
     get incomeRecordTree() {
-      return store.fetchIncomeRecordTree();
+      return store.fetchNewRecordTree('+');
     }
 
-    // get outlayRecordWeekTree(){
-    //   console.log(store.fetchOutlayRecordWeekTree());
-    //   return store.fetchOutlayRecordWeekTree();
-    // }
+    get outlayRecordWeekTree(){
+      console.log(store.fetchOutlayRecordWeekTree());
+      return store.fetchOutlayRecordWeekTree();
+    }
 
   }
 

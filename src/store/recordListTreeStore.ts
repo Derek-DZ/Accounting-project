@@ -26,29 +26,21 @@ const recordDateTypeStore = {
     }
     return recordTree;
   },
-  fetchOldRecordTree(oldRecordListTree, type) {
-    for (let i = oldRecordListTree.length - 1; i >= 0; i--) {
-      for (let j = oldRecordListTree[i].data.length - 1; j >= 0; j--) {
-        if (oldRecordListTree[i].data[j].type === type) {
-          oldRecordListTree[i].data.splice(j, 1);
+  fetchNewRecordTree(type) {
+    const newRecordTree = this.fetchRecordListTree();
+    for (let i = newRecordTree.length - 1; i >= 0; i--) {
+      for (let j = newRecordTree[i].data.length - 1; j >= 0; j--) {
+        if (newRecordTree[i].data[j].type !== type) {
+          newRecordTree[i].data.splice(j, 1);
         }
       }
-      if (oldRecordListTree[i].data.length === 0) {
-        oldRecordListTree.splice(i, 1);
+      if (newRecordTree[i].data.length === 0) {
+        newRecordTree.splice(i, 1);
       }
     }
-    return oldRecordListTree;
+    return newRecordTree;
   },
-  fetchIncomeRecordTree() {
-    const incomeRecordListTree = this.fetchRecordListTree();
-    this.fetchOldRecordTree(incomeRecordListTree, '-');
-    return incomeRecordListTree;
-  },
-  fetchOutlayRecordTree() {
-    const outlayRecordListTree = this.fetchRecordListTree();
-    this.fetchOldRecordTree(outlayRecordListTree, '+');
-    return outlayRecordListTree;
-  },
+
 };
 
 export default recordDateTypeStore;
