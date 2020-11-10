@@ -1,6 +1,6 @@
 <template>
   <div class="accountWrapper">
-<!--    {{outlayRecordWeekTree}}-->
+    {{outlayRecordWeekTree}}
     <Tabs :data-source="outInList" class-prefix="accountsOutIn" :value.sync="type"
     />
         <Tabs :data-source="dateList" class-prefix="accountsDate" :value.sync="date"/>
@@ -56,8 +56,10 @@
     }
 
     get outlayRecordWeekTree(){
-      console.log(store.fetchOutlayRecordWeekTree());
-      return store.fetchOutlayRecordWeekTree();
+      console.log(store.fetchNewRecordWeekTree());
+      console.log(dayjs().isSame(dayjs().startOf('w'), 'week'));
+      console.log(dayjs().startOf('w').format("ddd"));
+      return store.fetchNewRecordWeekTree();
     }
 
   }
