@@ -14,6 +14,7 @@
   export default class ECharts extends Vue {
     @Prop() option!: echarts.EChartOption;
 
+
     mounted(){
       console.log(this.option);
     }
