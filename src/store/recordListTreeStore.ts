@@ -7,7 +7,7 @@ const recordDateTypeStore = {
   fetchRecordList() {
     return store.fetchRecords();
   },
-  fetchRecordListTree(unit: string) {
+  fetchRecordListTree(unit: dayjs.OpUnitType) {
     const recordList = this.fetchRecordList();
     if (recordList.length === 0) {return [];}
     const newRecordList: RecordItem[] = clone(recordList).sort((a: RecordItem, b: RecordItem) => dayjs(b.date).valueOf() - dayjs(a.date).valueOf());
@@ -27,7 +27,7 @@ const recordDateTypeStore = {
     }
     return recordTree;
   },
-  fetchNewRecordTree(unit: string, type: string) {
+  fetchNewRecordTree(unit: dayjs.OpUnitType, type: string) {
     const newRecordTree = this.fetchRecordListTree(unit);
     for (let i = newRecordTree.length - 1; i >= 0; i--) {
       for (let j = newRecordTree[i].data.length - 1; j >= 0; j--) {
