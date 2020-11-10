@@ -2,13 +2,13 @@
   <ul class="accountList" v-if="recordTree.length>0">
     <li class="accountTitle" v-for="record in recordTree"
         :key="record.id">
-      <h3 class="title">{{beautifyDate(record.title)}}</h3>
+      <h3 class="title">{{beautifyTitle(record.title)}}</h3>
       <ul>
         <li v-for="item in record.data" :key="item.id" class="account">
           <Tag :tag-name="item.tagName"/>
           <div class="test-wrapper">
             <span class="accountNote">{{ item.note }}</span>
-            <span class="accountTime">{{ beautifyTime(item.date) }}</span>
+            <span class="accountTime">{{ beautifyAccount(item.date) }}</span>
           </div>
           <span class="accountMoney">{{ item.type }}￥{{ item.number }}</span>
         </li>
@@ -21,7 +21,6 @@
 <script lang="ts">
   import Vue from 'vue';
   import {Component, Prop} from 'vue-property-decorator';
-  import dayjs from 'dayjs';
   import Tag from '@/components/Tag.vue';
   @Component({
     components: {Tag}
@@ -29,22 +28,8 @@
   export default class AccountType extends Vue {
     @Prop() recordTree!: RecordTree;
     @Prop(String) type!: string;
-
-    beautifyDate(string: string) {
-      const day = dayjs(string);
-      const today = dayjs();
-      if (day.isSame(today, 'day')) {
-        return '今天';
-      } else if (day.isSame(today, 'year')) {
-        return day.format('M月D日');
-      } else {
-        return day.format('YYYY年M月D日');
-      }
-    }
-
-    beautifyTime(string: string) {
-      return dayjs(string).format('HH:mm');
-    }
+    @Prop(Function) beautifyTitle!: Function;
+    @Prop(Function) beautifyAccount!: Function;
   }
 
 </script>

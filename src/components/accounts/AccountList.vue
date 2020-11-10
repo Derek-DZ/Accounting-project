@@ -1,26 +1,38 @@
 <template>
   <div class="accountWrapper">
-    {{outlayRecordWeekTree}}
     <Tabs :data-source="outInList" class-prefix="accountsOutIn" :value.sync="type"
     />
-        <Tabs :data-source="dateList" class-prefix="accountsDate" :value.sync="date"/>
-        <AccountType :record-tree="outlayRecordTree" :type="this.type" v-show="type==='-'"/>
-        <AccountType :record-tree="incomeRecordTree" :type="this.type" v-show="type==='+'"/>
+    <Tabs :data-source="dateList" class-prefix="accountsDate" :value.sync="date"/>
+    <AccountType :record-tree="outlayRecordTreeDay" :type="this.type" v-show="type==='-'&& date==='day'"
+                 :beautify-title="this.beautifyDate" :beautify-account="this.beautifyTime"/>
+    <AccountType :record-tree="incomeRecordTreeDay" :type="this.type" v-show="type==='+'&& date==='day'"
+                 :beautify-title="this.beautifyDate" :beautify-account="this.beautifyTime"/>
+    <AccountType :record-tree="outlayRecordTreeWeek" :type="this.type" v-show="type==='-'&& date==='week'"
+                 :beautify-title="this.beautifyWeek" :beautify-account="this.beautifyDate"/>
+    <AccountType :record-tree="incomeRecordTreeWeek" :type="this.type" v-show="type==='+'&& date==='week'"
+                 :beautify-title="this.beautifyWeek" :beautify-account="this.beautifyDate"/>
+    <AccountType :record-tree="outlayRecordTreeMonth" :type="this.type" v-show="type==='-'&& date==='month'"
+                 :beautify-title="this.beautifyMonth" :beautify-account="this.beautifyDate"/>
+    <AccountType :record-tree="incomeRecordTreeMonth" :type="this.type" v-show="type==='+'&& date==='month'"
+                 :beautify-title="this.beautifyMonth" :beautify-account="this.beautifyDate"/>
   </div>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Prop, Watch} from 'vue-property-decorator';
+  import {Component} from 'vue-property-decorator';
   import store from '@/store/index2';
-  import clone from '@/lib/clone';
   import dayjs from 'dayjs';
   import Tag from '@/components/Tag.vue';
   import outInList from '@/constant/outInList';
-  import dateList from '@/constant/accountDateList';
   import Tabs from '@/components/Tabs.vue';
   import accountDateList from '@/constant/accountDateList';
   import AccountType from '@/components/accounts/AccountType.vue';
+
+
+  const weekOfYear = require('dayjs/plugin/weekOfYear');
+  dayjs.extend(weekOfYear);
+
 
   @Component({
     components: {AccountType, Tabs, Tag}
@@ -47,21 +59,57 @@
       return dayjs(string).format('HH:mm');
     }
 
-    get outlayRecordTree() {
-      return store.fetchNewRecordTree("-");
+    beautifyWeek(string: string) {
+      const week = dayjs(string);
+      const thisWeek = dayjs();
+      if (week.isSame(thisWeek, 'week')) {
+        return '本周';
+      } else if (week.week() === (thisWeek.week() - 1)) {
+        return '上周';
+      } else if (week.isSame(thisWeek, 'year')) {
+        return (week.startOf('w').format('M月D日') + " - " + week.endOf('w').format('M月D日'))
+      } else {
+        return (week.startOf('w').format('YYYY年M月D日') + " - " + week.endOf('w').format('YYYY年M月D日'))
+      }
     }
 
-    get incomeRecordTree() {
-      return store.fetchNewRecordTree('+');
+    beautifyMonth(string: string) {
+      const month = dayjs(string);
+      const thisWeek = dayjs();
+      if (month.isSame(thisWeek, 'month')) {
+        return '本月';
+      } else if (month.month() === (thisWeek.month() - 1)) {
+        return '上月';
+      } else if (month.isSame(thisWeek, 'year')) {
+        return (month.startOf('m').format('M月D日') + " - " + month.endOf('m').format('M月D日'))
+      } else {
+        return (month.startOf('m').format('YYYY年M月D日') + " - " + month.endOf('m').format('YYYY年M月D日'))
+      }
     }
 
-    get outlayRecordWeekTree(){
-      console.log(store.fetchNewRecordWeekTree());
-      console.log(dayjs().isSame(dayjs().startOf('w'), 'week'));
-      console.log(dayjs().startOf('w').format("ddd"));
-      return store.fetchNewRecordWeekTree();
+    get outlayRecordTreeDay() {
+      return store.fetchNewRecordTree('day', '-');
     }
 
+    get incomeRecordTreeDay() {
+      return store.fetchNewRecordTree('day', '+');
+    }
+
+    get outlayRecordTreeWeek() {
+      return store.fetchNewRecordTree('week', '-');
+    }
+
+    get incomeRecordTreeWeek() {
+      return store.fetchNewRecordTree('week', '+');
+    }
+
+    get outlayRecordTreeMonth() {
+      return store.fetchNewRecordTree('month', '-');
+    }
+
+    get incomeRecordTreeMonth() {
+      return store.fetchNewRecordTree('month', '+');
+    }
   }
 
 </script>
@@ -96,6 +144,7 @@
         z-index: 1;
       }
     }
+
     .accountsDate-tabs {
       transform: translateY(-5px);
       z-index: 2;
