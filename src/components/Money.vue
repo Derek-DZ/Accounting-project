@@ -53,7 +53,7 @@
     }
 
     get recordListTree() {
-      return store.fetchRecordListTree();
+      return store.fetchRecordListTree('day');
     }
 
     get todayNumber() {

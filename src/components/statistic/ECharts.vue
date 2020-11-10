@@ -14,11 +14,11 @@
   export default class ECharts extends Vue {
     @Prop() option!: object;
 
-    mounted() {
-      this.charts = echarts.init((this.$refs.container) as HTMLDivElement);
-
-      this.charts.setOption(this.option);
-    }
+    // mounted() {
+    //   this.charts = echarts.init((this.$refs.container) as HTMLDivElement);
+    //
+    //   this.charts.setOption(this.option);
+    // }
 
 
   }
