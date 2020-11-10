@@ -16,7 +16,12 @@
 
 
     mounted(){
+      if(this.option === undefined){
+        return console.error('options 为空')
+      }
       console.log(this.option);
+      const myChart = echarts.init(this.$refs.container as HTMLDivElement)
+      myChart.setOption(this.option)
     }
 
     // mounted() {
@@ -30,14 +35,19 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "~@/assets/style/helper.scss";
   .chartsWrapper{
-    border: 1px solid red;
+    margin-top: -8px;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    border-radius: 10px;
     flex-grow: 1;
     width: 100%;
+    background-color: $color-box;
     >.charts {
-      width: 90%;
-      height: 100%;
-      border: 1px solid red;
+      margin-top: 10px;
+      flex-grow: 1;
     }
   }
 
