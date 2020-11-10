@@ -60,6 +60,8 @@
         alert('请选择日期');
       } else {
         store.createRecord(this.record);
+        window.alert("账单已添加")
+        this.record.number = '0';
         this.record.type = '-';
         this.record.note = '';
       }
