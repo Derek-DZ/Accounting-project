@@ -27,7 +27,6 @@
   })
   export default class AccountType extends Vue {
     @Prop() recordTree!: RecordTree;
-    @Prop(String) type!: string;
     @Prop(Function) beautifyTitle!: Function;
     @Prop(Function) beautifyAccount!: Function;
   }
