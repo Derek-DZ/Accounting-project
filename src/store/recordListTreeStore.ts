@@ -2,7 +2,7 @@ import clone from '@/lib/clone';
 import dayjs from 'dayjs';
 import store from '@/store/index2';
 
-const recordListTreeStore = {
+const recordDateTypeStore = {
 
   fetchRecordList() {
     return store.fetchRecords();
@@ -26,34 +26,29 @@ const recordListTreeStore = {
     }
     return recordTree;
   },
-  fetchOutlayRecordTree() {
-    const outlayRecordListTree = this.fetchRecordListTree();
-    for (let i = outlayRecordListTree.length-1; i >= 0 ; i--) {
-      for (let j = outlayRecordListTree[i].data.length-1; j>=0 ; j--) {
-        if (outlayRecordListTree[i].data[j].type === '+') {
-          outlayRecordListTree[i].data.splice(j, 1);
+  fetchOldRecordTree(oldRecordListTree, type) {
+    for (let i = oldRecordListTree.length - 1; i >= 0; i--) {
+      for (let j = oldRecordListTree[i].data.length - 1; j >= 0; j--) {
+        if (oldRecordListTree[i].data[j].type === type) {
+          oldRecordListTree[i].data.splice(j, 1);
         }
       }
-      if (outlayRecordListTree[i].data.length===0){
-        outlayRecordListTree.splice(i,1)
+      if (oldRecordListTree[i].data.length === 0) {
+        oldRecordListTree.splice(i, 1);
       }
     }
-    return outlayRecordListTree;
+    return oldRecordListTree;
   },
   fetchIncomeRecordTree() {
     const incomeRecordListTree = this.fetchRecordListTree();
-    for (let i = incomeRecordListTree.length-1; i >= 0 ; i--) {
-      for (let j = incomeRecordListTree[i].data.length-1; j>=0 ; j--)  {
-        if (incomeRecordListTree[i].data[j].type === '-') {
-          incomeRecordListTree[i].data.splice(j, 1);
-        }
-      }
-      if (incomeRecordListTree[i].data.length===0){
-        incomeRecordListTree.splice(i,1)
-      }
-    }
+    this.fetchOldRecordTree(incomeRecordListTree, '-');
     return incomeRecordListTree;
+  },
+  fetchOutlayRecordTree() {
+    const outlayRecordListTree = this.fetchRecordListTree();
+    this.fetchOldRecordTree(outlayRecordListTree, '+');
+    return outlayRecordListTree;
   },
 };
 
-export default recordListTreeStore;
+export default recordDateTypeStore;

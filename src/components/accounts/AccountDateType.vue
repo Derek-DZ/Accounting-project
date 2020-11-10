@@ -2,7 +2,7 @@
   <ul class="accountList" v-if="recordTree.length>0">
     <li class="accountTitle" v-for="record in recordTree"
         :key="record.id">
-      <h3 class="title">{{beautifyDate(record.title)}}</h3>
+      <h3 class="title">{{beautifyWeek(record.title)}}</h3>
       <ul>
         <li v-for="item in record.data" :key="item.id" class="account">
           <Tag :tag-name="item.tagName"/>
@@ -23,22 +23,24 @@
   import {Component, Prop} from 'vue-property-decorator';
   import dayjs from 'dayjs';
   import Tag from '@/components/Tag.vue';
+  const weekOfYear = require('dayjs/plugin/weekOfYear')
+  dayjs.extend(weekOfYear)
   @Component({
     components: {Tag}
   })
-  export default class AccountsType extends Vue {
+  export default class AccountType extends Vue {
     @Prop() recordTree!: RecordTree;
     @Prop(String) type!: string;
 
-    beautifyDate(string: string) {
-      const day = dayjs(string);
+    beautifyWeek(string: string) {
+      const week = dayjs(string).week().toString();
       const today = dayjs();
-      if (day.isSame(today, 'day')) {
-        return '今天';
-      } else if (day.isSame(today, 'year')) {
-        return day.format('M月D日');
+      if (week.isSame(today, 'week')) {
+        return '本周';
+      } else if (week.isSame(today, 'year')) {
+        return week.format('M月D日');
       } else {
-        return day.format('YYYY年M月D日');
+        return week.format('YYYY年M月D日');
       }
     }
 

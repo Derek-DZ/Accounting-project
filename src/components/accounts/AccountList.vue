@@ -1,12 +1,12 @@
 <template>
   <div class="accountWrapper">
+<!--    {{outlayRecordWeekTree}}-->
     <Tabs :data-source="outInList" class-prefix="accountsOutIn" :value.sync="type"
     />
         <Tabs :data-source="dateList" class-prefix="accountsDate" :value.sync="date"/>
-        <AccountsType :record-tree="outlayRecordTree" :type="this.type" v-show="type==='-'"/>
-        <AccountsType :record-tree="incomeRecordTree" :type="this.type" v-show="type==='+'"/>
+        <AccountType :record-tree="outlayRecordTree" :type="this.type" v-show="type==='-'"/>
+        <AccountType :record-tree="incomeRecordTree" :type="this.type" v-show="type==='+'"/>
   </div>
-
 </template>
 
 <script lang="ts">
@@ -20,10 +20,10 @@
   import dateList from '@/constant/accountDateList';
   import Tabs from '@/components/Tabs.vue';
   import accountDateList from '@/constant/accountDateList';
-  import AccountsType from '@/components/accounts/AccountsType.vue';
+  import AccountType from '@/components/accounts/AccountType.vue';
 
   @Component({
-    components: {AccountsType, Tabs, Tag}
+    components: {AccountType, Tabs, Tag}
   })
   export default class Accounts extends Vue {
     outInList = outInList;
@@ -47,10 +47,6 @@
       return dayjs(string).format('HH:mm');
     }
 
-    get recordListTree() {
-      return store.fetchRecordListTree();
-    }
-
     get outlayRecordTree() {
       return store.fetchOutlayRecordTree();
     }
@@ -58,6 +54,11 @@
     get incomeRecordTree() {
       return store.fetchIncomeRecordTree();
     }
+
+    // get outlayRecordWeekTree(){
+    //   console.log(store.fetchOutlayRecordWeekTree());
+    //   return store.fetchOutlayRecordWeekTree();
+    // }
 
   }
 
