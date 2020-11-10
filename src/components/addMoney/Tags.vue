@@ -24,9 +24,9 @@
       'food': '食',
       'room': '住',
       'travel': '行',
+      'amusement': '娱乐',
       'study': '学习',
       'work': '工作',
-      'amusement': '娱乐',
       'medical': '医疗',
       'other': '其他',
     };

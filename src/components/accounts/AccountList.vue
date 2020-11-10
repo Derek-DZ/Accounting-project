@@ -2,7 +2,7 @@
   <div class="accountWrapper">
     <Tabs :data-source="outInList" class-prefix="accountsOutIn" :value.sync="type"
     />
-    <!--    <Tabs :data-source="dateList" class-prefix="accountsDate" :value.sync="date"/>-->
+        <Tabs :data-source="dateList" class-prefix="accountsDate" :value.sync="date"/>
     <ul class="accountList">
       <li v-show="type==='-' && outlayRecordTree.length>0" class="accountTitle" v-for="record in outlayRecordTree" :key="record.id">
         <h3 class="title">{{beautifyDate(record.title)}}</h3>
@@ -43,8 +43,9 @@
   import dayjs from 'dayjs';
   import Tag from '@/components/Tag.vue';
   import outInList from '@/constant/outInList';
-  import dateList from '@/constant/dateList';
+  import dateList from '@/constant/accountDateList';
   import Tabs from '@/components/Tabs.vue';
+  import accountDateList from '@/constant/accountDateList';
 
   @Component({
     components: {Tabs, Tag}
@@ -52,7 +53,7 @@
   export default class Accounts extends Vue {
     outInList = outInList;
     type = '-';
-    dateList = dateList;
+    dateList = accountDateList;
     date = 'day';
 
     beautifyDate(string: string) {
@@ -96,14 +97,13 @@
     flex-grow: 1;
     overflow: hidden;
     > .accountList {
-      position: relative;
       background-color: $color-box;
       border-radius: 10px;
-      margin-top: -5px;
+      margin-top: -8px;
       min-height: 5vh;
-      z-index: 10;
       overflow-y: scroll;
       padding-top: 5px;
+      z-index: 10;
 
       > .accountTitle {
         padding: 5px;
@@ -186,7 +186,38 @@
         z-index: 1;
       }
     }
+    .accountsDate-tabs {
+      transform: translateY(-5px);
+      z-index: 2;
 
+      > .accountsDate-tab-item {
+        border-radius: 10px 10px 0 0;
+        font-size: 14px;
+        padding: 2px;
+
+        > .icon {
+          display: none;
+        }
+      }
+
+      > .day-tab-item {
+        transform: translateX(10px);
+        z-index: 3;
+      }
+
+      > .week-tab-item {
+        z-index: 2;
+      }
+
+      > .month-tab-item {
+        transform: translateX(-10px);
+      }
+
+      > .accountsDate-tab-item.selected {
+        background-color: $color-box;
+        z-index: 3;
+      }
+    }
 
   }
 </style>

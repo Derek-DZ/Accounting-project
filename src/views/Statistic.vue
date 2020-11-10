@@ -4,7 +4,8 @@
     <Money/>
     <layout/>
     <Tabs :data-source="outInList" class-prefix="statisticOutIn" :value.sync="outInValue"/>
-<!--    <Tabs :data-source="dateList" class-prefix="statisticDate" :value.sync="dateValue"/>-->
+        <Tabs :data-source="dateList" class-prefix="statisticDate" :value.sync="dateValue"/>
+<!--    <ECharts :option="option"/>-->
   </div>
 </template>
 
@@ -15,16 +16,22 @@
   import Header from '@/components/Header.vue';
   import Tabs from '@/components/Tabs.vue';
   import outInList from '@/constant/outInList';
-  // import dateList from '@/constant/dateList';
+  import ECharts from '@/components/statistic/ECharts.vue';
+  // import echartsDataList from '@/constant/echartsDataList';
+
+  import statisticDateList from '@/constant/statisticDateList';
+
 
   @Component({
-    components: {Tabs, Header, Money}
+    components: {ECharts, Tabs, Header, Money}
   })
   export default class Statistic extends Vue {
-    outInList = outInList
-    outInValue = '-'
-    // dateList = dateList
-    // dateValue = 'day'
+    outInList = outInList;
+    outInValue = '-';
+    dateList = statisticDateList
+    dateValue = 'day'
+
+
   }
 </script>
 
@@ -35,48 +42,59 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    height: 98vh;
     margin: 8px;
   }
 
   ::v-deep {
-    .statisticOutIn-tabs{
+    .statisticOutIn-tabs {
       > .statisticOutIn-tab-item {
         padding: 3px;
         font-size: 16px;
       }
+
       > .income-tab-item {
         transform: translateX(-20px);
       }
+
       > .outlay-tab-item {
         transform: translateX(20px);
       }
-      > .statisticOutIn-tab-item.selected{
+
+      > .statisticOutIn-tab-item.selected {
         background-color: $color-box;
         z-index: 1;
       }
     }
-    .statisticDate-tabs{
+
+    .statisticDate-tabs {
       transform: translateY(-5px);
       z-index: 2;
+
       > .statisticDate-tab-item {
         border-radius: 10px 10px 0 0;
         font-size: 14px;
         padding: 2px;
-        > .icon{
+
+        > .icon {
           display: none;
         }
       }
+
       > .day-tab-item {
         transform: translateX(10px);
         z-index: 3;
       }
+
       > .week-tab-item {
         z-index: 2;
       }
+
       > .month-tab-item {
         transform: translateX(-10px);
       }
-      > .statisticDate-tab-item.selected{
+
+      > .statisticDate-tab-item.selected {
         background-color: $color-box;
         z-index: 3;
       }
