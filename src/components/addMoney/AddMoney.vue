@@ -82,7 +82,7 @@
   @import "~@/assets/style/helper.scss";
 
   .addMoney {
-    display: flex;
+    display: none;
     flex-direction: column-reverse;
     align-items: center;
     border-radius: 50px;
@@ -92,9 +92,8 @@
     left: 2.5%;
     position: absolute;
     transition: top .5s, bottom .5s;
-
-    bottom: 0;
-    z-index: 999;
+    bottom: -100%;
+    z-index: 11;
 
     > .hide {
       width: 48px;

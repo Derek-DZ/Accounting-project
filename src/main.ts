@@ -32,7 +32,7 @@ if (document.documentElement.clientWidth > 500) {
   const img = document.createElement('img');
   img.src = './images/QRcode.png'
   img.style.position = 'fixed';
-  img.style.zIndex = '11'
+  img.style.zIndex = '12'
   img.style.top = '50%'
   img.style.left = '50%'
   img.style.transform = 'translate(-50%,-50%)'
