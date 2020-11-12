@@ -57,39 +57,45 @@ const chartDateListStore = {
       ];
       n = type === '-' ? 6 : 7;
     }
-
-    const chosenList = this.fetchChartDateListArray()[n][0].data;
-    const newList: RecordTree = [{title: chosenList[0].date, data: [chosenList[0]]}];
-    store.updateRecordListTree(chosenList, newList, unit);
-    for (let i = 0; i < newList.length; i++) {
-      for (let j = 0; j < newList[i].data.length; j++) {
-        for (let k = 0; k < tagsList.length; k++) {
-          if (newList[i].data[j].tagName === tagsList[k].key) {
-            if (unit === 'day') {
-              if (dayjs(newList[i].data[j].date).day() === 0) {
-                chartDate[k][chartDate.length - 1] += parseFloat(newList[i].data[j].number);
-              } else {
-                chartDate[k][dayjs(newList[i].data[j].date).day() - 1] += parseFloat(newList[i].data[j].number);
+    if (this.fetchChartDateListArray()[n].length !== 0) {
+      const chosenList = this.fetchChartDateListArray()[n][0].data;
+      const newList: RecordTree = [{title: chosenList[0].date, data: [chosenList[0]]}];
+      store.updateRecordListTree(chosenList, newList, unit);
+      for (let i = 0; i < newList.length; i++) {
+        for (let j = 0; j < newList[i].data.length; j++) {
+          for (let k = 0; k < tagsList.length; k++) {
+            if (newList[i].data[j].tagName === tagsList[k].key) {
+              if (unit === 'day') {
+                if (dayjs(newList[i].data[j].date).day() === 0) {
+                  chartDate[k][chartDate.length - 1] += parseFloat(newList[i].data[j].number);
+                } else {
+                  chartDate[k][dayjs(newList[i].data[j].date).day() - 1] += parseFloat(newList[i].data[j].number);
+                }
+              } else if (unit === 'week') {
+                chartDate[k][dayjs(newList[i].data[j].date).week() - dayjs().startOf('month').week()] += parseFloat(newList[i].data[j].number);
+              } else if (unit === 'month') {
+                chartDate[k][dayjs(newList[i].data[j].date).month()] += parseFloat(newList[i].data[j].number);
               }
-            } else if (unit === 'week') {
-              chartDate[k][dayjs(newList[i].data[j].date).week() - dayjs().startOf('month').week()] += parseFloat(newList[i].data[j].number);
-            } else if (unit === 'month') {
-              chartDate[k][dayjs(newList[i].data[j].date).month()] += parseFloat(newList[i].data[j].number);
             }
           }
         }
       }
+      return chartDate;
     }
-    return chartDate;
   },
   fetchChartLabels(unit: OpUnitType) {
     let chartLabels: string[] | undefined = [];
+    const newChartLabelsList = chartLabelsList
     if (unit === 'day') {
-      chartLabels = chartLabelsList[0].weekDay;
+      chartLabels = newChartLabelsList[0].weekDay;
+      if (chartLabels![dayjs().day() - 1].length<4){chartLabels?.splice(dayjs().day() - 1,1,'# '+chartLabels[dayjs().day() - 1])}
     } else if (unit === 'week') {
-      chartLabels = chartLabelsList[1].monthWeek;
+      chartLabels = newChartLabelsList[1].monthWeek;
+      if (chartLabels![dayjs().week() - dayjs().startOf('month').week()].length<4){chartLabels?.splice(dayjs().week() - dayjs().startOf('month').week(),1,'# '+chartLabels[dayjs().week() - dayjs().startOf('month').week()])}
     } else if (unit === 'month') {
-      chartLabels = chartLabelsList[2].yearMonth;
+      chartLabels = newChartLabelsList[2].yearMonth;
+      if (chartLabels![dayjs().month()].length<4){chartLabels?.splice(dayjs().month() ,1,'# '+chartLabels[dayjs().month()])}
+
     }
     return chartLabels;
   }

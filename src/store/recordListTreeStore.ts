@@ -7,17 +7,19 @@ const recordDateTypeStore = {
   fetchRecordList() {
     return store.fetchRecords();
   },
-  updateRecordListTree(recordList: RecordItem[],recordTree: RecordTree,unit: dayjs.OpUnitType){
+  updateRecordListTree(recordList: RecordItem[], recordTree: RecordTree, unit: dayjs.OpUnitType) {
+    if (recordList === [] || recordTree === []) {return recordTree = [];}
     for (let i = 0; i < recordList.length - 1; i++) {
       const current = recordList[i + 1];
       const last = recordTree[recordTree.length - 1];
 
-      if (dayjs(current.date).isSame(dayjs(last.title), unit )) {
+      if (dayjs(current.date).isSame(dayjs(last.title), unit)) {
         last.data.push(current);
       } else {
         recordTree.push({title: current.date, data: [current]});
       }
     }
+
   },
   fetchRecordListTree(unit: dayjs.OpUnitType) {
     const recordList = this.fetchRecordList();
@@ -27,11 +29,12 @@ const recordDateTypeStore = {
       title: newRecordList[0].date,
       data: [newRecordList[0]]
     }];
-    this.updateRecordListTree(newRecordList,recordTree,unit)
+    this.updateRecordListTree(newRecordList, recordTree, unit);
     return recordTree;
   },
   fetchNewRecordTree(unit: dayjs.OpUnitType, type: string) {
     const newRecordTree = this.fetchRecordListTree(unit);
+    if (newRecordTree.length === 0) {return newRecordTree;}
     for (let i = newRecordTree.length - 1; i >= 0; i--) {
       for (let j = newRecordTree[i].data.length - 1; j >= 0; j--) {
         if (newRecordTree[i].data[j].type !== type) {

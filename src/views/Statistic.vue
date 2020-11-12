@@ -39,16 +39,26 @@
       }
       return newTagsList;
     }
+
     get chartOption() {
+      if (!this.chartData || !this.tagsList || !this.chartLabels) {
+        return {
+          title: {
+            text: '暂无数据',
+            top: '5px',
+            left: '10px'
+          },
+        };
+      }
       return {
         tooltip: {
           trigger: 'axis',
-          axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+          axisPointer: {
+            type: 'shadow'
           }
         },
         legend: {
-          data: this.tagsList
+          data: this.tagsList,
         },
         grid: {
           left: '4%',
@@ -61,7 +71,8 @@
         },
         yAxis: {
           type: 'category',
-          data: this.chartLabels
+          data: this.chartLabels,
+          width: '1000px'
         },
         series: [
           {

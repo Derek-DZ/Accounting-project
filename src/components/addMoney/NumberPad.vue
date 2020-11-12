@@ -67,11 +67,11 @@
 
     enter() {
       this.$emit('update:value', this.number);
-      if (this.number === '0'){
-        window.alert("请输入金额")
-      }else{
+      if (this.number === '0') {
+        window.alert('请输入金额');
+      } else {
         this.$emit('submit', this.number);
-
+        this.number = '0';
       }
 
     }

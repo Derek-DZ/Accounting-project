@@ -1,5 +1,5 @@
 <template>
-  <ul class="accountList" v-if="recordTree.length>0">
+  <ul class="accountList">
     <li class="accountTitle" v-for="record in recordTree"
         :key="record.id">
       <h3 class="title">{{beautifyTitle(record.title)}}</h3>
@@ -14,7 +14,7 @@
         </li>
       </ul>
     </li>
-
+    <li class="noData" v-if="recordTree.length===0">暂无数据</li>
   </ul>
 </template>
 
@@ -22,6 +22,7 @@
   import Vue from 'vue';
   import {Component, Prop} from 'vue-property-decorator';
   import Tag from '@/components/Tag.vue';
+
   @Component({
     components: {Tag}
   })
@@ -31,10 +32,12 @@
     @Prop(Function) beautifyAccount!: Function;
   }
 
+
 </script>
 
 <style lang="scss" scoped>
   @import "~@/assets/style/helper.scss";
+
   .accountList {
     background-color: $color-box;
     border-radius: 10px;
@@ -44,10 +47,18 @@
     padding-top: 5px;
     z-index: 10;
 
+    > .noData {
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      padding: 10px;
+    }
+
     > .accountTitle {
       padding: 5px;
       justify-content: start;
       margin: 2px 8px 2px 8px;
+
 
       > .title {
         display: flex;
