@@ -4,6 +4,7 @@ import Money from '@/components/Money.vue';
 import Statistic from '@/views/Statistic.vue';
 import Accounts from '@/views/Accounts.vue';
 import NotFound from '@/views/NotFound.vue';
+import Temporary from '@/views/Temporary.vue';
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,10 @@ const routes: Array<RouteConfig> = [
   {
     path: '*',
     component: NotFound
+  },
+  {
+    path: '/temporary',
+    component: Temporary
   }
 ];
 

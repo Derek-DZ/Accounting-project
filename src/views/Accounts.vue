@@ -3,7 +3,7 @@
     <Header/>
     <Money/>
     <layout/>
-    <AccountList />
+    <AccountList/>
   </div>
 </template>
 

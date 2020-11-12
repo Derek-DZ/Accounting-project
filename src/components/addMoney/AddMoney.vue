@@ -63,6 +63,7 @@
         window.alert("账单已添加")
         this.record.type = '-';
         this.record.note = '';
+        this.$router.push('/temporary')
       }
     }
 

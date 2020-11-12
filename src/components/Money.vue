@@ -74,7 +74,6 @@
         return 0;
       }
     }
-
   }
 </script>
 
