@@ -1,9 +1,9 @@
 <template>
   <div>
     <ul class="tags">
-      <li v-for="(tag,index) in tagsTable" :key="tag" @click="onToggle(index)">
-        <Tag :tag-name="index" :class="{selected: value===index}"/>
-        {{tag}}
+      <li v-for="tags in tagsTable" :key="tags.key" @click="onToggle(tags.key)">
+        <Tag :tag-name="tags.key" :class="{selected: value===tags.key}"/>
+        {{tags.value}}
       </li>
     </ul>
     <Icon name="right"/>
@@ -14,22 +14,13 @@
   import Vue from 'vue';
   import {Component, Prop} from 'vue-property-decorator';
   import Tag from '@/components/Tag.vue';
+  import tagsList from '@/constant/tagsList';
 
   @Component({
     components: {Tag}
   })
   export default class Tags extends Vue {
-    tagsTable = {
-      'clothes': '衣',
-      'food': '食',
-      'room': '住',
-      'travel': '行',
-      'amusement': '娱乐',
-      'study': '学习',
-      'work': '工作',
-      'medical': '医疗',
-      'other': '其他',
-    };
+    tagsTable = tagsList
 
     @Prop() readonly value!: string;
 

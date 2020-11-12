@@ -7,36 +7,34 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Prop} from 'vue-property-decorator';
+  import {Component, Prop, Watch} from 'vue-property-decorator';
   import echarts from 'echarts';
 
   @Component
   export default class ECharts extends Vue {
-    @Prop() option!: echarts.EChartOption;
+    @Prop() options!: echarts.EChartOption;
+    myChart!: echarts.ECharts;
 
-
-    mounted(){
-      if(this.option === undefined){
-        return console.error('options 为空')
+    mounted() {
+      if (this.options === undefined) {
+        return console.error('options 为空');
       }
-      console.log(this.option);
-      const myChart = echarts.init(this.$refs.container as HTMLDivElement)
-      myChart.setOption(this.option)
+      this.myChart = echarts.init(this.$refs.container as HTMLDivElement);
+      this.myChart.setOption(this.options);
     }
 
-    // mounted() {
-    //   this.charts = echarts.init((this.$refs.container) as HTMLDivElement);
-    //
-    //   this.charts.setOption(this.option);
-    // }
-
+    @Watch('options')
+    onOptionsChanged(newValue: echarts.EChartOption) {
+      this.myChart.setOption(newValue, true);
+    }
 
   }
 </script>
 
 <style lang="scss" scoped>
   @import "~@/assets/style/helper.scss";
-  .chartsWrapper{
+
+  .chartsWrapper {
     margin-top: -8px;
     position: relative;
     z-index: 10;
@@ -45,7 +43,8 @@
     flex-grow: 1;
     width: 100%;
     background-color: $color-box;
-    >.charts {
+
+    > .charts {
       margin-top: 10px;
       flex-grow: 1;
     }

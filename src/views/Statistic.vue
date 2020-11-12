@@ -5,7 +5,7 @@
     <layout/>
     <Tabs :data-source="outInList" class-prefix="statisticOutIn" :value.sync="outInValue"/>
     <Tabs :data-source="dateList" class-prefix="statisticDate" :value.sync="dateValue"/>
-    <ECharts :option="chartOption"/>
+    <ECharts :options="chartOption"/>
   </div>
 </template>
 
@@ -17,10 +17,11 @@
   import Tabs from '@/components/Tabs.vue';
   import outInList from '@/constant/outInList';
   import ECharts from '@/components/statistic/ECharts.vue';
-  // import echartsDataList from '@/constant/echartsDataList';
+  import store from '@/store/index2';
 
   import statisticDateList from '@/constant/statisticDateList';
-
+  import tagsList from '@/constant/tagsList';
+  import {OpUnitType} from 'dayjs';
 
   @Component({
     components: {ECharts, Tabs, Header, Money}
@@ -29,8 +30,15 @@
     outInList = outInList;
     outInValue = '-';
     dateList = statisticDateList;
-    dateValue = 'day';
+    dateValue = 'day' as OpUnitType;
 
+    get tagsList() {
+      const newTagsList: string[] = [];
+      for (let i = 0; i < tagsList.length; i++) {
+        newTagsList.push(tagsList[i].value);
+      }
+      return newTagsList;
+    }
     get chartOption() {
       return {
         tooltip: {
@@ -40,7 +48,7 @@
           }
         },
         legend: {
-          data: ['衣', '食', '住', '行', '学习', '娱乐', '工作', '医疗', '其他']
+          data: this.tagsList
         },
         grid: {
           left: '4%',
@@ -53,7 +61,7 @@
         },
         yAxis: {
           type: 'category',
-          data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+          data: this.chartLabels
         },
         series: [
           {
@@ -64,7 +72,7 @@
               position: 'insideRight'
             },
             color: '#fe7547',
-            data: [320, 302, 301, 334, 390, 330, 320]
+            data: this.chartData[0]
           },
           {
             name: '食',
@@ -74,7 +82,7 @@
               position: 'insideRight'
             },
             color: '#f1d4cb',
-            data: [120, 132, 101, 134, 90, 230, 210]
+            data: this.chartData[1]
           },
           {
             name: '住',
@@ -84,7 +92,7 @@
               position: 'insideRight'
             },
             color: '#612635',
-            data: [220, 182, 191, 234, 290, 330, 310]
+            data: this.chartData[2]
           },
           {
             name: '行',
@@ -94,7 +102,7 @@
               position: 'insideRight'
             },
             color: '#a33cbf',
-            data: [150, 212, 201, 154, 190, 330, 410]
+            data: this.chartData[3]
           },
           {
             name: '学习',
@@ -104,7 +112,7 @@
               position: 'insideRight'
             },
             color: '#2bc1ff',
-            data: [320, 332, 401, 434, 590, 530, 720]
+            data: this.chartData[4]
           },
           {
             name: '娱乐',
@@ -114,7 +122,7 @@
               position: 'insideRight'
             },
             color: '#7b6cff',
-            data: [150, 212, 201, 154, 190, 330, 410]
+            data: this.chartData[5]
           },
           {
             name: '工作',
@@ -124,7 +132,7 @@
               position: 'insideRight'
             },
             color: '#ba0040',
-            data: [150, 212, 201, 154, 190, 330, 410]
+            data: this.chartData[6]
           },
           {
             name: '医疗',
@@ -134,7 +142,7 @@
               position: 'insideRight'
             },
             color: '#ea0300',
-            data: [1500, 212, 201, 154, 190, 330, 410]
+            data: this.chartData[7]
           },
           {
             name: '其他',
@@ -144,12 +152,19 @@
               position: 'insideRight'
             },
             color: '#5f5f5f',
-            data: [150, 212, 201, 154, 190, 330, 410]
+            data: this.chartData[8]
           },
         ]
       };
     }
 
+    get chartData() {
+      return store.fetchChartData(this.outInValue, this.dateValue);
+    }
+
+    get chartLabels() {
+      return store.fetchChartLabels(this.dateValue);
+    }
   }
 </script>
 
