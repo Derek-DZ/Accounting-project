@@ -41,6 +41,7 @@
     }
 
     get chartOption() {
+
       if (!this.chartData || !this.tagsList || !this.chartLabels) {
         return {
           title: {
@@ -243,6 +244,6 @@
         z-index: 3;
       }
     }
-
   }
+
 </style>

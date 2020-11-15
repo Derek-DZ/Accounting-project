@@ -85,16 +85,20 @@ const chartDateListStore = {
   },
   fetchChartLabels(unit: OpUnitType) {
     let chartLabels: string[] | undefined = [];
-    const newChartLabelsList = chartLabelsList
+    const newChartLabelsList = chartLabelsList;
     if (unit === 'day') {
       chartLabels = newChartLabelsList[0].weekDay;
-      if (chartLabels![dayjs().day() - 1].length<4){chartLabels?.splice(dayjs().day() - 1,1,'# '+chartLabels[dayjs().day() - 1])}
+      if (dayjs().day() !== 0) {
+        if (chartLabels![dayjs().day() - 1].length < 4) {chartLabels?.splice(dayjs().day() - 1, 1, '# ' + chartLabels[dayjs().day() - 1]);}
+      } else {
+        if (chartLabels![dayjs().day() + 6].length < 4) {chartLabels?.splice(dayjs().day() + 6, 1, '# ' + chartLabels[dayjs().day() + 6]);}
+      }
     } else if (unit === 'week') {
       chartLabels = newChartLabelsList[1].monthWeek;
-      if (chartLabels![dayjs().week() - dayjs().startOf('month').week()].length<4){chartLabels?.splice(dayjs().week() - dayjs().startOf('month').week(),1,'# '+chartLabels[dayjs().week() - dayjs().startOf('month').week()])}
+      if (chartLabels![dayjs().week() - dayjs().startOf('month').week()].length < 4) {chartLabels?.splice(dayjs().week() - dayjs().startOf('month').week(), 1, '# ' + chartLabels[dayjs().week() - dayjs().startOf('month').week()]);}
     } else if (unit === 'month') {
       chartLabels = newChartLabelsList[2].yearMonth;
-      if (chartLabels![dayjs().month()].length<4){chartLabels?.splice(dayjs().month() ,1,'# '+chartLabels[dayjs().month()])}
+      if (chartLabels![dayjs().month()].length < 4) {chartLabels?.splice(dayjs().month(), 1, '# ' + chartLabels[dayjs().month()]);}
 
     }
     return chartLabels;
