@@ -6,7 +6,9 @@
     <Date @update:value="onUpdateDate"/>
     <Note :value.sync="record.note"/>
     <Tags :value.sync="record.tagName"/>
-    <div class="hide" @click="hide"></div>
+    <div class="hide" @click="hide">
+      <Icon name="close" />
+    </div>
   </div>
 </template>
 
@@ -103,6 +105,19 @@
       background-color: $color-background;
       margin-top: 10px;
       border-radius: 5px;
+      display: flex;
+      justify-content: center;
+
+      > .icon {
+        align-self: center;
+        height:15px;
+        opacity: 60%;
+        animation: .5s linear .1s infinite alternate close;
+      }
+      @keyframes close{
+        from{transform: translateY(-3px)}
+        to{transform: translateY(3px)}
+      }
     }
   }
 
