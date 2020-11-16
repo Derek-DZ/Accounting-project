@@ -21,8 +21,9 @@ git commit -m 'deploy'
 
 # 部署到 https://<USERNAME>.github.io/<REPO>
 
-git push -f git@github.com:Derek-DZ/Account-project-website.git master:gh-pages
+git push -f git@github.com:Derek-DZ/account-project-website.git master:gh-pages
+git push -f git@gitee.com:derek-sun/account-project-website.git master:gh-pages
 # 部署到码云的链接 git@gitee.com:derek-sun/account-project-website.git
-# 部署到git pages的链接 git@github.com:Derek-DZ/Account-project-website.git
+# 部署到git pages的链接 git@github.com:Derek-DZ/account-project-website.git
 
 cd -

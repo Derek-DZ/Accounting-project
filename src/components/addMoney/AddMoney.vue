@@ -111,7 +111,7 @@
       > .icon {
         align-self: center;
         height:15px;
-        opacity: 60%;
+        opacity: 0.6;
         animation: .5s linear .1s infinite alternate close;
       }
       @keyframes close{
